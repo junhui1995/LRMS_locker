@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_margin="5dp"
+	android:background="?attr/selectableItemBackgroundBorderless"
+	app:cardCornerRadius="4dp"
+	app:cardElevation="4dp">
+
+	<android.support.constraint.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:padding="8dp">
+
+		<android.support.constraint.Guideline
+			android:id="@+id/guidelineV25"
+			android:layout_width="wrap_content"
+			android:layout_height="0dp"
+			android:orientation="vertical"
+			app:layout_constraintGuide_percent="0.25" />
+
+		<android.support.constraint.Guideline
+			android:id="@+id/guidelineV50"
+			android:layout_width="wrap_content"
+			android:layout_height="0dp"
+			android:orientation="vertical"
+			app:layout_constraintGuide_begin="20dp"
+			app:layout_constraintGuide_percent="0.5" />
+
+		<TextView
+			android:id="@+id/textView32"
+			android:layout_width="wrap_content"
+			android:layout_height="0dp"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="8dp"
+			android:text="@string/userId"
+			android:textStyle="bold"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			android:layout_marginLeft="8dp" />
+
+		<TextView
+			android:id="@+id/userId_pendingApproval"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="8dp"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="8dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="@+id/guidelineV25"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<TextView
+			android:id="@+id/textView37"
+			android:layout_width="wrap_content"
+			android:layout_height="0dp"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="4dp"
+			android:text="@string/itemassetno"
+			android:textStyle="bold"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/textView32"
+			android:layout_marginLeft="8dp" />
+
+		<TextView
+			android:id="@+id/assetNumber_pendingApproval"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="8dp"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="4dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="@+id/guidelineV25"
+			app:layout_constraintTop_toBottomOf="@+id/userId_pendingApproval" />
+
+		<TextView
+			android:id="@+id/textView31"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="4dp"
+			android:text="@string/itemname"
+			android:textStyle="bold"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/textView37" />
+
+		<TextView
+			android:id="@+id/assetDescription_pendingApproval"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="8dp"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="4dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.0"
+			app:layout_constraintStart_toStartOf="@+id/guidelineV25"
+			app:layout_constraintTop_toBottomOf="@+id/assetNumber_pendingApproval" />
+
+		<TextView
+			android:id="@+id/textView33"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="4dp"
+			android:text="@string/datefrom"
+			android:textStyle="bold"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/assetDescription_pendingApproval" />
+
+		<TextView
+			android:id="@+id/date_from_pendingApproval"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="8dp"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="4dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.0"
+			app:layout_constraintStart_toStartOf="@+id/guidelineV25"
+			app:layout_constraintTop_toBottomOf="@+id/assetDescription_pendingApproval" />
+
+		<TextView
+			android:id="@+id/textView34"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="4dp"
+			android:text="@string/dateto"
+			android:textStyle="bold"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/textView33" />
+
+		<TextView
+			android:id="@+id/date_to_pendingApproval"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="8dp"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="4dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.0"
+			app:layout_constraintStart_toStartOf="@+id/guidelineV25"
+			app:layout_constraintTop_toBottomOf="@+id/date_from_pendingApproval" />
+
+		<TextView
+			android:id="@+id/textView35"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="4dp"
+			android:text="@string/reason"
+			android:textStyle="bold"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/textView34"
+			android:layout_marginLeft="8dp" />
+
+		<TextView
+			android:id="@+id/reason_pendingApprovalPo"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="8dp"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="4dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.0"
+			app:layout_constraintStart_toStartOf="@+id/guidelineV25"
+			app:layout_constraintTop_toBottomOf="@+id/date_to_pendingApproval" />
+
+		<ImageButton
+			android:id="@+id/imageButtonAccept"
+			android:layout_width="0dp"
+			android:layout_height="50dp"
+			android:layout_weight="1"
+			android:background="@null"
+			android:scaleType="fitCenter"
+			app:layout_constraintEnd_toStartOf="@+id/guidelineV50"
+			app:layout_constraintStart_toStartOf="parent"
+			app:srcCompat="@drawable/ic_tick"
+			tools:layout_editor_absoluteY="178dp" />
+
+		<ImageButton
+			android:id="@+id/imageButtonReject"
+			android:layout_width="0dp"
+			android:layout_height="50dp"
+			android:layout_weight="1"
+			android:background="@null"
+			android:scaleType="fitCenter"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/guidelineV50"
+			app:srcCompat="@drawable/ic_cross"
+			tools:layout_editor_absoluteY="178dp" />
+
+	</android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>
