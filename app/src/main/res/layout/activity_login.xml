@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/login_layout"
+	android:padding="5dp"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context="com.sit.labresourcemanagement.Presenter.Activity.LoginActivity">
+
+
+	<ImageView
+		android:id="@+id/imgSIT"
+		android:layout_width="wrap_content"
+		android:layout_height="168dp"
+		android:background="@null"
+		android:scaleType="fitCenter"
+		app:layout_constraintBottom_toTopOf="@+id/tvTittle"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:srcCompat="@drawable/ic_sitlogo" />
+
+	<EditText
+		android:id="@+id/etUsername"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="8dp"
+		android:ems="10"
+		android:hint="Username"
+		android:inputType="textPersonName"
+		android:background="@drawable/text_area"
+		app:layout_constraintHorizontal_bias="0.503"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent"
+		app:layout_constraintTop_toTopOf="@+id/guidelineV0.5" />
+
+	<EditText
+		android:id="@+id/etPassword"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="8dp"
+		android:ems="10"
+		android:hint="Password"
+		android:inputType="textPassword"
+		android:background="@drawable/text_area"
+		app:layout_constraintHorizontal_bias="0.503"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/tvuserName" />
+
+	<Button
+
+		android:id="@+id/btnLogin"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:background="@drawable/custom_button"
+		android:text="Login"
+		android:textColor="@color/cardview_light_background"
+		app:layout_constraintHorizontal_bias="0.502"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/tvuserPassword" />
+
+	<TextView
+		android:id="@+id/tvTittle"
+		android:layout_width="0dp"
+		android:layout_height="32dp"
+		android:layout_marginBottom="8dp"
+		android:gravity="center"
+		android:text="Lab Resource Management System"
+		android:textColor="#000000"
+		android:textStyle="bold"
+		app:layout_constraintBottom_toTopOf="@+id/guidelineV0.5"
+		app:layout_constraintHorizontal_bias="0.505"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent" />
+
+	<TextView
+		android:id="@+id/tvuserName"
+		android:layout_width="200dp"
+		android:layout_height="15dp"
+		android:textColor="#FFFF4040"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/etUsername" />
+
+	<TextView
+		android:id="@+id/tvuserPassword"
+		android:layout_width="200dp"
+		android:layout_height="15dp"
+		android:textColor="#FFFF4040"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+
+	<android.support.constraint.Guideline
+		android:id="@+id/guidelineV0.5"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		app:layout_constraintGuide_percent="0.5" />
+
+</android.support.constraint.ConstraintLayout>
+

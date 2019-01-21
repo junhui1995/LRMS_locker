@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content">
+
+	<android.support.constraint.Guideline
+		android:id="@+id/guidelineV25"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_begin="20dp"
+		app:layout_constraintGuide_percent="0.25" />
+
+	<android.support.constraint.Guideline
+		android:id="@+id/guidelineV50"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_begin="20dp"
+		app:layout_constraintGuide_percent="0.5" />
+
+	<android.support.constraint.Guideline
+		android:id="@+id/guidelineV75"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_begin="20dp"
+		app:layout_constraintGuide_percent="0.75" />
+
+	<TextView
+		android:id="@+id/textView37"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="8dp"
+		android:layout_marginStart="8dp"
+		android:text="@string/campus"
+		android:textAlignment="viewStart"
+		android:textStyle="bold"
+		app:layout_constraintBottom_toBottomOf="@+id/spinnerLocation"
+		app:layout_constraintEnd_toStartOf="@+id/guidelineV25"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="@+id/spinnerLocation" />
+
+	<Spinner
+		android:id="@+id/spinnerLocation"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="8dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="@+id/guidelineV25"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/textView38"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="8dp"
+		android:layout_marginStart="8dp"
+		android:text="@string/locker"
+		android:textAlignment="viewStart"
+		android:textStyle="bold"
+		app:layout_constraintBottom_toBottomOf="@+id/spinnerLocker"
+		app:layout_constraintEnd_toStartOf="@+id/guidelineV25"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="@+id/spinnerLocker" />
+
+	<Spinner
+		android:id="@+id/spinnerLocker"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="8dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="4dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="1.0"
+		app:layout_constraintStart_toStartOf="@+id/guidelineV25"
+		app:layout_constraintTop_toBottomOf="@+id/spinnerLocation" />
+
+	<TextView
+		android:id="@+id/textView39"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:layout_marginEnd="2dp"
+		android:text="@string/pin"
+		android:textAlignment="viewStart"
+		android:textStyle="bold"
+		app:layout_constraintEnd_toStartOf="@+id/guidelineV25"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/spinnerLocker" />
+
+	<TextView
+		android:id="@+id/tvPin"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginBottom="8dp"
+		android:text="TextView"
+		app:layout_constraintBottom_toBottomOf="@+id/textView39"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toEndOf="@+id/textView39"
+		app:layout_constraintTop_toTopOf="@+id/textView39" />
+
+</android.support.constraint.ConstraintLayout>

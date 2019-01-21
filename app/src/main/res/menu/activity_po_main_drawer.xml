@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:id="@+id/grp0" android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_po_home"
+            android:icon="@drawable/ic_home"
+            android:checked="true"
+            android:title="Home" />
+    </group>
+
+    <group android:id="@+id/grp1" android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_checkout_asset"
+            android:icon="@drawable/ic_checkout"
+            android:title="@string/asset_check_in_out" />
+
+        <item
+            android:id="@+id/nav_pending_loan"
+            android:icon="@drawable/ic_loan"
+            android:title="@string/pending_loan" />
+
+        <!--<item-->
+            <!--android:id="@+id/nav_recent_checkout"-->
+            <!--android:icon="@drawable/ic_confirm_loan"-->
+            <!--android:title="@string/recent_checkout" />-->
+    </group>
+
+    <group android:id="@+id/grp2" android:checkableBehavior="single">
+        <item
+        android:id="@+id/nav_PO_Logout"
+        android:icon="@drawable/ic_exit_to_app_black_24dp_logout"
+        android:title="Logout" />
+    </group>
+
+</menu>

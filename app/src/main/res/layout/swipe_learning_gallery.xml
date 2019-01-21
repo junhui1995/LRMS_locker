@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:layout_margin="5dp">
+
+	<android.support.constraint.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:padding="5dp">
+
+
+		<TextView
+			android:id="@+id/textViewTitle"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="8dp"
+			android:layout_marginStart="16dp"
+			android:layout_marginTop="8dp"
+			android:text="@string/title"
+			android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/textViewPageNumber"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<ImageView
+			android:id="@+id/imageViewInstructionImage"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:layout_marginBottom="8dp"
+			android:layout_marginEnd="8dp"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="8dp"
+			app:layout_constraintBottom_toTopOf="@+id/guidelineH"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+			app:srcCompat="@drawable/ic_image" />
+
+		<ProgressBar
+			android:id="@+id/progress"
+			android:layout_width="match_parent"
+			android:layout_height="100dp"
+			android:layout_marginBottom="8dp"
+			android:layout_marginTop="8dp"
+			android:visibility="visible"
+			app:layout_constraintBottom_toBottomOf="@+id/imageViewInstructionImage"
+			app:layout_constraintEnd_toEndOf="@+id/imageViewInstructionImage"
+			app:layout_constraintStart_toStartOf="@+id/imageViewInstructionImage"
+			app:layout_constraintTop_toTopOf="@+id/imageViewInstructionImage" />
+
+		<TextView
+			android:id="@+id/textViewPageNumber"
+			android:layout_width="wrap_content"
+			android:layout_height="0dp"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="8dp"
+			android:text="@string/page_number"
+			android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+			android:textColor="@android:color/black"
+			app:layout_constraintBottom_toBottomOf="@+id/textViewTitle"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<View
+			android:id="@+id/divider8"
+			android:layout_width="0dp"
+			android:layout_height="1dp"
+			android:layout_marginEnd="8dp"
+			android:layout_marginTop="4dp"
+			android:background="?android:attr/listDivider"
+			app:layout_constraintEnd_toStartOf="@+id/textViewTitle"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/textViewPageNumber" />
+
+		<View
+			android:id="@+id/divider10"
+			android:layout_width="1dp"
+			android:layout_height="0dp"
+			android:background="?android:attr/listDivider"
+			app:layout_constraintBottom_toBottomOf="@+id/divider8"
+			app:layout_constraintStart_toEndOf="@id/divider8"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<android.support.constraint.Guideline
+			android:id="@+id/guidelineH"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			app:layout_constraintGuide_percent="0.5" />
+
+		<ScrollView
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:layout_marginBottom="8dp"
+			android:layout_marginEnd="8dp"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="8dp"
+			android:clipToPadding="false"
+			android:background="@drawable/text_area"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="@+id/guidelineH">
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="vertical">
+
+				<TextView
+					android:id="@+id/textViewInstruction"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_marginBottom="8dp"
+					android:layout_marginEnd="8dp"
+					android:layout_marginStart="8dp"
+					android:layout_marginTop="8dp"
+					android:elevation="20dp"
+					android:text="@string/instruction"
+					android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="@+id/guidelineH" />
+			</LinearLayout>
+		</ScrollView>
+
+	</android.support.constraint.ConstraintLayout>
+
+</LinearLayout>

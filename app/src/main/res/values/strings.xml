@@ -1,0 +1,76 @@
+<resources>
+    <string name="app_name">LRMS</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="ReturnedCondition">
+        <item name="Normal"></item>
+        <item name="Damaged"></item>
+    </string-array>
+
+    <string name="title_activity_po_main">poMainActivity</string>
+
+    <string name="attendance">Attendance</string>
+    <string name="booking">Booking</string>
+    <string name="learning_gallery">Learning Gallery</string>
+    <string name="loan">Loan</string>
+    <string name="alert">Alert</string>
+    <string name="cancel">Cancel</string>
+    <string name="title_activity_student_loan_return_request">StudentLoanReturnRequestActivity</string>
+    <string name="title">Title</string>
+    <string name="instruction">Instruction Placeholder</string>
+    <string name="attendance_status">attendance status placeholder</string>
+    <string name="retry">Retry</string>
+    <string name="checkout_asset">CHECK OUT</string>
+    <string name="pending_loan">Pending Request</string>
+    <string name="recent_checkout">Recent Checkout</string>
+    <string name="bid">Booking ID</string>
+    <string name="lab">Lab ID</string>
+    <string name="workbench">Workbench ID</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="reason">Reason</string>
+    <string name="reject">Reject</string>
+    <string name="enter_tag">Enter a tag to search</string>
+    <string name="page_number">0</string>
+    <string name="numbers_only">0123456789</string>
+    <string name="rb_scroll">Scroll</string>
+    <string name="rb_swipe">Swipe</string>
+    <string name="nav_style">Navigation Style</string>
+    <string name="back">Back</string>
+    <string name="root">Root</string>
+    <string name="main">main</string>
+    <string name="asset">Asset</string>
+    <string name="userId">User Id</string>
+    <string name="dateFrom">From</string>
+    <string name="dateTo">To</string>
+    <string name="locker">Locker</string>
+    <string name="campus">Campus</string>
+    <string name="boxid">Box</string>
+    <string name="pin">Pin</string>
+	<string name="asset_number">Asset No</string>
+	<string name="approv_po_id">Approval PO</string>
+	<string name="confirm">Confirm</string>
+	<string name="locker_details">Locker Details</string>
+	<string name="location">Location</string>
+	<string name="Qr">QR scan</string>
+	<string name="retun">Return</string>
+	<string name="checkin">Check In</string>
+	<string name="checkout">Check Out</string>
+	<string name="checkin_asset">CHECK IN</string>
+	<string name="asset_check_in_out">Asset Check In/Out</string>
+	<string name="submit">submit</string>
+    <string name="dateloan">Date Loaned</string>
+    <string name="itemInventoryNo">Inventory No</string>
+    <string name="itemcategory">Category</string>
+    <string name="itemfaculty">Faculty</string>
+    <string name="request">Request</string>
+    <string name="status">Status</string>
+
+</resources>

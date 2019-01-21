@@ -1,0 +1,46 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+		<item name="colorPrimary">#0F5257</item>
+		<item name="colorPrimaryDark">#0B3142</item>
+		<item name="colorAccent">#8884FF</item>
+		<item name="android:navigationBarColor">#0F5257</item>
+
+    </style>
+
+    <style name="AppTheme1" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+		<item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+		<item name="android:navigationBarColor">@color/colorPrimary</item>
+		<item name="android:windowBackground">@drawable/bi_white_grass</item>
+    </style>
+
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/launch_screen</item>
+		<item name="colorPrimaryDark">#0B3142</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+	<style name="DialogTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">match_parent</item>
+		<!-- No backgrounds, titles or window float -->
+		<item name="android:windowBackground">@null</item>
+		<item name="android:windowNoTitle">true</item>
+		<item name="android:windowIsFloating">false</item>
+	</style>
+
+</resources>

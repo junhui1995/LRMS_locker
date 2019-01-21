@@ -1,0 +1,33 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sit.labresourcemanagement.Presenter.Fragment.Student.BookingHistoryFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout">
+
+        <TextView
+            android:id="@+id/tvBookingHistory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Booking History"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textSize="24dp" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lvHistoryBookingInformation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>

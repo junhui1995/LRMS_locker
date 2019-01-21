@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Presenter.Fragment.Student.StudentLoanFragment">
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelineV1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+	<android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <View
+        android:id="@+id/divider5"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+	<View
+		android:id="@+id/divider7"
+		android:layout_width="1dp"
+		android:layout_height="0dp"
+		android:background="?android:attr/listDivider"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="@+id/divider5"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<ImageButton
+		android:id="@+id/imageButtonNewLoan"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginBottom="32dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:adjustViewBounds="true"
+		android:background="@null"
+		android:scaleType="fitCenter"
+		android:src="@drawable/ic_new_loan"
+		app:layout_constraintBottom_toTopOf="@+id/guideline2"
+		app:layout_constraintEnd_toStartOf="@+id/guidelineV1"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<ImageButton
+		android:id="@+id/imageButtonLoanStatus"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginBottom="32dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:adjustViewBounds="true"
+		android:background="@null"
+		android:scaleType="fitCenter"
+		android:src="@drawable/ic_confirm_loan"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/guidelineV1"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+	<ImageButton
+		android:id="@+id/imageButtonReturnLoan"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginBottom="32dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:adjustViewBounds="true"
+		android:background="@null"
+		android:scaleType="fitCenter"
+		android:src="@drawable/ic_return_loan"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="@+id/guidelineV1"
+		app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+	<ImageButton
+		android:id="@+id/imageButtonScanQR"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginBottom="32dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:adjustViewBounds="true"
+		android:background="@null"
+		android:scaleType="fitCenter"
+		android:src="@drawable/ic_qrcode"
+		app:layout_constraintBottom_toTopOf="@+id/guideline2"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="@+id/guidelineV1"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/textView8"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginBottom="8dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginStart="8dp"
+		android:text="New Loan"
+		android:textAlignment="center"
+		android:textAllCaps="true"
+		android:textColor="@color/black"
+		android:textStyle="bold"
+		app:layout_constraintBottom_toTopOf="@+id/divider5"
+		app:layout_constraintEnd_toStartOf="@+id/guidelineV1"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/imageButtonNewLoan" />
+
+	<TextView
+		android:id="@+id/textView10"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginBottom="8dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginStart="8dp"
+		android:text="Loan Status"
+		android:textAlignment="center"
+		android:textAllCaps="true"
+		android:textColor="@color/black"
+		android:textStyle="bold"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/guidelineV1"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/imageButtonLoanStatus" />
+
+	<TextView
+		android:id="@+id/textView11"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginBottom="8dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginStart="8dp"
+		android:text="Return Loan"
+		android:textAlignment="center"
+		android:textAllCaps="true"
+		android:textColor="@color/black"
+		android:textStyle="bold"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="@+id/guidelineV1"
+		app:layout_constraintTop_toBottomOf="@+id/imageButtonReturnLoan" />
+
+
+	<TextView
+		android:id="@+id/textView30"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginBottom="8dp"
+		android:layout_marginStart="8dp"
+		android:text="Scan Asset/Locker"
+		android:textAlignment="center"
+		android:textAllCaps="true"
+		android:textColor="@color/black"
+		android:textStyle="bold"
+		app:layout_constraintBottom_toTopOf="@+id/guideline2"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent"
+		app:layout_constraintStart_toStartOf="@+id/guidelineV1"
+		app:layout_constraintTop_toBottomOf="@+id/imageButtonScanQR" />
+
+</android.support.constraint.ConstraintLayout>
