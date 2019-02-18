@@ -38,15 +38,13 @@
 			android:id="@+id/tvId1"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_marginStart="11dp"
-			android:layout_marginTop="8dp"
+			android:layout_marginStart="8dp"
 			android:layout_marginEnd="8dp"
 			android:text="TextView"
+			app:layout_constraintBottom_toBottomOf="@+id/textView40"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="@+id/guidelineV25"
-			app:layout_constraintTop_toTopOf="parent"
-			android:layout_marginLeft="11dp"
-			android:layout_marginRight="8dp" />
+			app:layout_constraintTop_toTopOf="@+id/textView40" />
 
 		<TextView
 			android:id="@+id/textView42"
@@ -63,13 +61,13 @@
 			android:id="@+id/tvAssetNo"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_marginEnd="8dp"
 			android:layout_marginStart="8dp"
-			android:layout_marginTop="4dp"
+			android:layout_marginEnd="8dp"
 			android:text="TextView"
+			app:layout_constraintBottom_toBottomOf="@+id/textView42"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="@+id/guidelineV25"
-			app:layout_constraintTop_toBottomOf="@+id/tvId1" />
+			app:layout_constraintTop_toTopOf="@+id/textView42" />
 
 		<TextView
 			android:id="@+id/textView44"
@@ -87,49 +85,69 @@
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="8dp"
-			android:layout_marginTop="4dp"
-			android:layout_marginEnd="12dp"
-			android:layout_marginRight="12dp"
+			android:layout_marginEnd="8dp"
 			android:text="TextView"
+			app:layout_constraintBottom_toBottomOf="@+id/textView44"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="@+id/guidelineV25"
-			app:layout_constraintTop_toBottomOf="@+id/tvAssetNo" />
+			app:layout_constraintTop_toTopOf="@+id/textView44" />
 
 		<TextView
 			android:id="@+id/textView46"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="8dp"
-			android:layout_marginLeft="8dp"
 			android:layout_marginTop="4dp"
 			android:text="@string/itemcategory"
 			android:textStyle="bold"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/tvName" />
+			app:layout_constraintTop_toBottomOf="@+id/textView44" />
 
 		<TextView
 			android:id="@+id/tvCategory"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_marginEnd="8dp"
 			android:layout_marginStart="8dp"
-			android:layout_marginTop="4dp"
+			android:layout_marginEnd="8dp"
 			android:text="TextView"
+			app:layout_constraintBottom_toBottomOf="@+id/textView46"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="@+id/guidelineV25"
-			app:layout_constraintTop_toBottomOf="@+id/tvName" />
+			app:layout_constraintTop_toTopOf="@+id/textView46" />
 
 		<Button
 			android:id="@+id/btnRequestitem"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="8dp"
 			android:layout_marginEnd="8dp"
 			android:layout_marginBottom="8dp"
 			android:text="@string/request"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/tvCategory" />
+			app:layout_constraintTop_toBottomOf="@+id/tvitemlocation" />
+
+		<TextView
+			android:id="@+id/textView43"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="4dp"
+			android:text="@string/location"
+			android:textStyle="bold"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/textView46" />
+
+		<TextView
+			android:id="@+id/tvitemlocation"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:layout_marginEnd="8dp"
+			android:text="TextView"
+			app:layout_constraintBottom_toBottomOf="@+id/textView43"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="@+id/guidelineV25"
+			app:layout_constraintTop_toTopOf="@+id/textView43" />
 
 		<!--android:textColor="@color/link"-->
 

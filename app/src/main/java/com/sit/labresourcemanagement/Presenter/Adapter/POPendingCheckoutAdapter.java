@@ -107,9 +107,9 @@ public class POPendingCheckoutAdapter extends RecyclerView.Adapter<POPendingChec
 
 	private void lockerDialog(String lockerId){
 		View dialogView = LayoutInflater.from(context).inflate(R.layout.custom_checkout_locker_details, null);
-		tvCampus = (TextView)dialogView.findViewById(R.id.textViewCampus);
-		tvLocker = (TextView)dialogView.findViewById(R.id.textViewLocker);
-		tvPin = (TextView)dialogView.findViewById(R.id.textViewPin);
+		tvCampus = dialogView.findViewById(R.id.textViewCampus);
+		tvLocker = dialogView.findViewById(R.id.textViewLocker);
+		tvPin = dialogView.findViewById(R.id.textViewPin);
 
 		getLockerDetails(lockerId);
 

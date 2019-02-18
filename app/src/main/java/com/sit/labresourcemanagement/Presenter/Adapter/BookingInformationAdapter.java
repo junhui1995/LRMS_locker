@@ -86,7 +86,7 @@ public class BookingInformationAdapter extends BaseAdapter {
         //Widgets initialization
         textUserID = (TextView) vi.findViewById(R.id.tvUserID);
         textWorkBenchName = (TextView) vi.findViewById(R.id.tvWorkBenchName);
-        textLocation = (TextView) vi.findViewById(R.id.TextVeiew);
+        textLocation = (TextView) vi.findViewById(R.id.tvLocation);
         textDateandTimeStart = (TextView) vi.findViewById(R.id.tvDateAndTimeStart);
         textDateandTimeEnd = (TextView) vi.findViewById(R.id.tvDateAndTimeEnd);
         textStatus = (TextView) vi.findViewById(R.id.tvStatus);

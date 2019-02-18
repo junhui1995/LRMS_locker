@@ -2,16 +2,44 @@ package com.sit.labresourcemanagement.Model.PO;
 
 public class PendingCheckInModel {
 
-	String returnId, loanId, userId, assetNumber, assetDescription, dateTime, location, inventoryId;
+	String returnId;
+	String loanId;
+	String userId;
+	String assetNumber;
+	String assetDescription;
+	String inventoryId;
+	String locker;
+	String pin;
 
-	public PendingCheckInModel(String returnId, String loanId, String userId, String assetNumber, String assetDescription, String dateTime, String location, String inventoryId) {
-		this.returnId = returnId;
+	public String getLocker() {
+		return locker;
+	}
+
+	public void setLocker(String locker) {
+		this.locker = locker;
+	}
+
+	public String getPin() {
+		return pin;
+	}
+
+	public void setPin(String pin) {
+		this.pin = pin;
+	}
+
+
+	//String dateTime, location;
+
+	public PendingCheckInModel( String userId, String assetNumber, String assetDescription,String loanId,String locker,String pin,String inventoryId) {
+		//this.returnId = returnId;
 		this.loanId = loanId;
 		this.userId = userId;
 		this.assetNumber = assetNumber;
 		this.assetDescription = assetDescription;
-		this.dateTime = dateTime;
-		this.location = location;
+		this.locker = locker;
+		this.pin = pin;
+		/*this.dateTime = dateTime;
+		this.location = location;*/
 		this.inventoryId = inventoryId;
 	}
 
@@ -55,7 +83,7 @@ public class PendingCheckInModel {
 		this.assetDescription = assetDescription;
 	}
 
-	public String getDateTime() {
+	/*public String getDateTime() {
 		return dateTime;
 	}
 
@@ -69,7 +97,7 @@ public class PendingCheckInModel {
 
 	public void setLocation(String location) {
 		this.location = location;
-	}
+	}*/
 
 	public String getInventoryId() {
 		return inventoryId;

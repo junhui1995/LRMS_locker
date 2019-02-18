@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -99,7 +100,7 @@ public class StudentScanToReturnItem extends Fragment {
 
         //Student new return request
         newReturnReqView = rootview.findViewById(R.id.stud_new_item_return);
-        tvLocation = initializeView.findViewById(R.id.TextVeiew);
+        tvLocation = initializeView.findViewById(R.id.tvLocation);
         tvLocker = initializeView.findViewById(R.id.tvLocker);
         tvPin = initializeView.findViewById(R.id.tvPin);
         tvReturnedItem = initializeView.findViewById(R.id.tvReturnItem);
@@ -117,6 +118,7 @@ public class StudentScanToReturnItem extends Fragment {
             @Override
             public void onClick(View v) {
                 submitReturnRequest();
+
             }
         });
 
@@ -126,6 +128,7 @@ public class StudentScanToReturnItem extends Fragment {
 
     }
 
+    
     public void showpreLoadScanner() {
         initializeView.setVisibility(View.VISIBLE);
         newReturnReqView.setVisibility(View.GONE);
@@ -312,6 +315,8 @@ public class StudentScanToReturnItem extends Fragment {
         pd.setMessage("Submitting your request");
         pd.show();
 
+        //setting calendar event
+
         //Submit return request using volley
         StringRequest spinner_req=new StringRequest(Request.Method.POST,url +"putUpReturnLoanRequest.php", new Response.Listener<String>() {
             @Override
@@ -341,6 +346,7 @@ public class StudentScanToReturnItem extends Fragment {
                 }
 
 
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -352,6 +358,10 @@ public class StudentScanToReturnItem extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params=new HashMap<>();
                 params.put("loanId", hminvIDtoloanId.get(inventoryID));
+                //params.put("")
+
+                //params.put("time", dateReturn + " " + timeReturn);
+                //params.put("place",meetingPlace);
                 return params;
             }
         };

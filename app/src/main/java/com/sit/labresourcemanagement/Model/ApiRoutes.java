@@ -6,7 +6,10 @@ package com.sit.labresourcemanagement.Model;
 
 public class ApiRoutes {
 
-    private static String base_url = "http://192.168.1.11/labresourcemgmt/";
+
+
+     private static String base_url = "http://192.168.1.11/labresourcemgmt/";
+    //private static String base_url = "http://192.168.1.11/labresourcemgmt/";
 	private static String url = base_url + "api/";
 
 	public static String getBase_url() {

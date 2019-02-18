@@ -110,6 +110,7 @@ public class POCheckInOutAsset extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         loadPendingCheckIn();
+		//Snackbar.make(rootview, "Error", Snackbar.LENGTH_SHORT).show();
 
         return rootview;
     }
@@ -194,14 +195,21 @@ public class POCheckInOutAsset extends Fragment {
 							JSONObject jsonObject1 = jsonArray.getJSONObject(i);
 
 							PendingCheckInModel model = new PendingCheckInModel(
-									jsonObject1.getString("id"),
-									jsonObject1.getString("lid"),
+
 									jsonObject1.getString("userId"),
 									jsonObject1.getString("assetNo"),
 									jsonObject1.getString("assetDescription"),
-									jsonObject1.getString("time"),
-									jsonObject1.getString("location"),
-									jsonObject1.getString("inventoryId")
+									jsonObject1.getString("loanid"),
+
+									jsonObject1.getString("lockername"),
+									jsonObject1.getString("pin"),
+                                    jsonObject1.getString("inventoryId")
+
+									//jsonObject1.getString("pin")
+									//no need time, location, inventory
+									//jsonObject1.getString("time"),
+									//jsonObject1.getString("location"),
+
 							);
 							pendingCheckInList.add(model);
 						}
@@ -216,7 +224,7 @@ public class POCheckInOutAsset extends Fragment {
 					}
 
 				} catch (JSONException e) {
-					//e.printStackTrace();
+					e.printStackTrace();
 				}
 			}
 		}, new Response.ErrorListener() {
@@ -398,7 +406,7 @@ public class POCheckInOutAsset extends Fragment {
 				Map<String, String>  params = new HashMap<String, String>();
 				params.put("loanId", pendingCheckInList.get(position).getLoanId());
 				params.put("inventoryId", pendingCheckInList.get(position).getInventoryId());
-				params.put("returnId", pendingCheckInList.get(position).getReturnId());
+				//params.put("returnId", pendingCheckInList.get(position).getReturnId());
 				params.put("remarks", remarks);
 				return params;
 			}

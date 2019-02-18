@@ -90,7 +90,7 @@ public class POReturnPendingApprovalAdapter extends RecyclerView.Adapter<PORetur
 
 			tvUserId = itemView.findViewById(R.id.tvreturnuserid);
 			tvAssetNumber = itemView.findViewById(R.id.tvreturnassetno);
-			tvAssetDetail = itemView.findViewById(R.id.tvreturnitemname);
+			tvAssetDetail = itemView.findViewById(R.id.tvreturnloanid);
 			tvDateTime = itemView.findViewById(R.id.tvreturnitemdate);
 			tvLocation = itemView.findViewById(R.id.tvreturnstatus);
 

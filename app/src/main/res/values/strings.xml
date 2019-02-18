@@ -73,4 +73,24 @@
     <string name="request">Request</string>
     <string name="status">Status</string>
 
+
+
+    <string name="datefrom">Date From</string>
+    <string name="timefrom">Time From</string>
+    <string name="dateto">Date to</string>
+    <string name="timeto">Time to</string>
+    <string name="itemname">Item Name</string>
+    <string name="itemserialno">Serial No</string>
+    <string name="itemassetno">Asset No</string>
+    <string name="generate">Generate</string>
+    <string name="setlocker">Set Locker</string>
+    <string name="scan">Scan</string>
+    <string name="loanstatus">Loan Status</string>
+    <string name="lockerdetails">Locker Details</string>
+    <string name="delete">Delete</string>
+    <string name="newloan">New Loan</string>
+    <string name="viewitems">View Items</string>
+    <string name="loanhistory">Loan History</string>
+    <string name="returnitem">Return Item</string>
+
 </resources>

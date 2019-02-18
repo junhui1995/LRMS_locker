@@ -27,7 +27,7 @@ public class POPendingCheckInAdapter extends RecyclerView.Adapter<POPendingCheck
 	}
 
 	class ViewHolder extends RecyclerView.ViewHolder{
-		TextView userId, assetNumber, assetDescription, dateTime, location, checkIn;
+		TextView userId, assetNumber, assetDescription, locker, loanid, checkIn, pin;
 
 		public ViewHolder(View itemView) {
 			super(itemView);
@@ -35,8 +35,9 @@ public class POPendingCheckInAdapter extends RecyclerView.Adapter<POPendingCheck
 			userId = itemView.findViewById(R.id.textView_check_in_userId);
 			assetNumber = itemView.findViewById(R.id.textView_check_in_assetNumber);
 			assetDescription = itemView.findViewById(R.id.textView_check_in_assetDescription);
-			dateTime = itemView.findViewById(R.id.textView_check_in_dateTime);
-			location = itemView.findViewById(R.id.textView_check_in_location);
+			loanid = itemView.findViewById(R.id.textView_checkin_loanid);
+			locker = itemView.findViewById(R.id.textView_check_in_locker);
+			pin = itemView.findViewById(R.id.textView_checkin_pin);
 			checkIn = itemView.findViewById(R.id.textView_check_in_asset);
 		}
 	}
@@ -54,8 +55,11 @@ public class POPendingCheckInAdapter extends RecyclerView.Adapter<POPendingCheck
 		holder.userId.setText(model.getUserId());
 		holder.assetNumber.setText(model.getAssetNumber());
 		holder.assetDescription.setText(model.getAssetDescription());
-		holder.dateTime.setText(model.getDateTime());
-		holder.location.setText(model.getLocation());
+		holder.loanid.setText(model.getLoanId());
+		holder.locker.setText(model.getLocker());
+		holder.pin.setText(model.getPin());
+		//holder.dateTime.setText(model.getDateTime());
+		//holder.location.setText(model.getLocation());
 
 
 		holder.checkIn.setOnClickListener(new View.OnClickListener() {

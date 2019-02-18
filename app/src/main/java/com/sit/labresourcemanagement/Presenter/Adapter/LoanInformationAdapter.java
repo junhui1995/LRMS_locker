@@ -43,7 +43,7 @@ public class LoanInformationAdapter extends BaseAdapter{
     String url = ApiRoutes.getUrl();
 
     //Widgets declaration
-    TextView tvAssetDescription ,tvdateFrom ,tvdateTo , tvStatus,tvReasonofLoan,tvPoId,tvRejReason ,tvLockerReq , tvDelete;
+    TextView tvAssetDescription ,tvdateFrom ,tvdateTo , tvStatus,tvReasonofLoan,tvPoId,tvRejReason ,tvLockerReq , tvDelete, tvReturn;
     Button btnLockerDetails;
 
 
@@ -95,6 +95,7 @@ public class LoanInformationAdapter extends BaseAdapter{
         tvLockerReq = vi.findViewById(R.id.tvLockerRequest);
         btnLockerDetails = vi.findViewById(R.id.btnViewLockerDetails);
         tvDelete = vi.findViewById(R.id.tvDelete);
+        tvReturn = vi.findViewById(R.id.tvReturn);
 
         //Insert content into widgets
         tvAssetDescription.setText(listofLoanInformation.get(position).getassetDescription());
@@ -124,6 +125,14 @@ public class LoanInformationAdapter extends BaseAdapter{
             }
         });
 
+        tvReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                putIntoLoanReturn(position);
+                //Toast.makeText(context, "You may proceed to locker", Toast.LENGTH_SHORT).show();
+                //tvReturn.setVisibility(view.GONE);
+            }
+        });
         tvDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,12 +178,81 @@ public class LoanInformationAdapter extends BaseAdapter{
         //Check whether loan is pending status so can give user chance to delete request
         if(listofLoanInformation.get(position).getStatus().equalsIgnoreCase("Pending Approval")){
             tvDelete.setVisibility(View.VISIBLE);
+
         }
         else{
             tvDelete.setVisibility(View.GONE);
         }
+        //Check whether loan is pending status so can give user chance to delete request
+
+        //This is to ensure that student can only return an item after receiving it, ie on loan.
+        //This is to prevent users from returning items that they haven check out.
+        if(listofLoanInformation.get(position).getStatus().equalsIgnoreCase("on Loan")){
+            tvReturn.setVisibility(View.VISIBLE);
+
+        }
+        else{
+            tvReturn.setVisibility(View.GONE);
+        }
 
         return vi;
+    }
+    public void putIntoLoanReturn(final int position)
+    {
+        //insert record into database
+        StringRequest send_req = new StringRequest(Request.Method.POST,url + "returnloan.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+
+                    //Check if response was success
+                    if (jsonObject.getString("status").equals("exist")){
+
+                        Toast.makeText(context, "Item has been returned before", Toast.LENGTH_SHORT).show();
+
+                        //update adapter
+                        notifyDataSetChanged();
+                    }                    //Check if response was success
+                    else if (jsonObject.getString("status").equals("Success")){
+
+                        Toast.makeText(context, "You may proceed to locker", Toast.LENGTH_SHORT).show();
+
+                        //update adapter
+                        notifyDataSetChanged();
+                    }
+                    else
+                    {
+                        Toast.makeText(context, "please redo", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "Something went wrong here..", Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                //Details to post to delete a particular row
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("userId", SharedPrefManager.getInstance(context).getUser().getId());
+                params.put("lid", listofLoanInformation.get(position).getloanId());
+                params.put("inventoryid",listofLoanInformation.get(position).getinventoryId());
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue= Volley.newRequestQueue(context);
+        requestQueue.add(send_req);
+
+
+
     }
     public void displaylockerDetails(String lockerId){
         AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
@@ -271,6 +349,7 @@ public class LoanInformationAdapter extends BaseAdapter{
 
             case "On Loan":
                 tvStatus.setTextColor(context.getResources().getColor(R.color.link));
+
                 break;
 
             case "Rejected":

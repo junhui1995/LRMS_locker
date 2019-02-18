@@ -70,7 +70,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginStart="8dp"
 			android:layout_marginTop="4dp"
-			android:layout_marginEnd="8dp"
+			android:layout_marginEnd="11dp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="@+id/guidelineV25"
 			app:layout_constraintTop_toBottomOf="@+id/tvreturnuserid"
@@ -82,23 +82,23 @@
 			android:layout_height="wrap_content"
 			android:layout_marginStart="8dp"
 			android:layout_marginTop="4dp"
-			android:text="@string/asset"
+			android:text="@string/loan"
 			android:textStyle="bold"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/textView37" />
 
 		<TextView
-			android:id="@+id/tvreturnitemname"
+			android:id="@+id/tvreturnloanid"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="8dp"
 			android:layout_marginTop="4dp"
 			android:layout_marginEnd="8dp"
+			android:text="loan Id"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.0"
 			app:layout_constraintStart_toStartOf="@+id/guidelineV25"
-			app:layout_constraintTop_toBottomOf="@+id/tvreturnassetno"
-			tools:text="@string/asset" />
+			app:layout_constraintTop_toBottomOf="@+id/tvreturnassetno" />
 
 		<TextView
 			android:id="@+id/textView33"
@@ -106,30 +106,17 @@
 			android:layout_height="wrap_content"
 			android:layout_marginStart="8dp"
 			android:layout_marginTop="4dp"
-			android:text="@string/dateloan"
+			android:text="@string/approv_po_id"
 			android:textStyle="bold"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/tvreturnitemname" />
-
-		<TextView
-			android:id="@+id/tvreturnitemdate"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="8dp"
-			android:layout_marginTop="4dp"
-			android:layout_marginEnd="8dp"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.0"
-			app:layout_constraintStart_toStartOf="@+id/guidelineV25"
-			app:layout_constraintTop_toBottomOf="@+id/tvreturnitemname"
-			tools:text="@string/dateTo" />
+			app:layout_constraintTop_toBottomOf="@+id/tvreturnloanid" />
 
 		<TextView
 			android:id="@+id/textView34"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="8dp"
-			android:layout_marginTop="4dp"
+			android:layout_marginTop="8dp"
 			android:text="@string/status"
 			android:textStyle="bold"
 			app:layout_constraintStart_toStartOf="parent"
@@ -140,28 +127,35 @@
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="8dp"
-			android:layout_marginTop="4dp"
+			android:layout_marginTop="8dp"
 			android:layout_marginEnd="8dp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.0"
 			app:layout_constraintStart_toStartOf="@+id/guidelineV25"
-			app:layout_constraintTop_toBottomOf="@+id/tvreturnitemdate"
+			app:layout_constraintTop_toBottomOf="@+id/tvReturnPoId"
 			tools:text="Status" />
 
-		<TextView
-			android:id="@+id/tvReturn"
+		<Button
+			android:id="@+id/btnGetLocker"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="16dp"
-			android:layout_marginEnd="8dp"
-			android:layout_marginBottom="8dp"
-			android:text="@string/retun"
-			android:textAlignment="center"
-			android:textColor="@color/link"
-			android:textSize="18sp"
-			app:layout_constraintBottom_toBottomOf="parent"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="8dp"
+			android:text="Get Locker"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/textView34" />
+
+		<TextView
+			android:id="@+id/tvReturnPoId"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="8dp"
+			android:layout_marginEnd="5dp"
+			android:text="@string/approv_po_id"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/tvreturnstatus" />
+			app:layout_constraintStart_toEndOf="@+id/textView33"
+			app:layout_constraintTop_toBottomOf="@+id/tvreturnloanid" />
 
 	</android.support.constraint.ConstraintLayout>
 

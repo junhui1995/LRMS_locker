@@ -206,6 +206,14 @@
                     android:textColor="@color/red"
                     android:visibility="gone" />
 
+                <TextView
+                    android:id="@+id/tvReturn"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Return"
+                    android:textColor="@color/red" />
+
 
             </LinearLayout>
 

@@ -6,8 +6,12 @@
     <include
         android:id="@+id/preLoadStudScanEQPforReturnReq"
         layout="@layout/fragment_pendingload_qrscanner"/>
+    <!--<include
+        android:id="@+id/stud_new_item_return"
+        layout="@layout/fragment_student_loan_return"/>-->
+
     <include
         android:id="@+id/stud_new_item_return"
-        layout="@layout/fragment_student_loan_return"/>
+        layout="@layout/fragment_student_return_request"/>
 
 </LinearLayout>

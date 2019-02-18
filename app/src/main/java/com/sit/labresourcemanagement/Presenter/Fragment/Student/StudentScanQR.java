@@ -2,11 +2,13 @@ package com.sit.labresourcemanagement.Presenter.Fragment.Student;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,10 +51,12 @@ public class StudentScanQR extends Fragment {
     private String QRresult = "";
     private String lockerID =  "";
     private String Category = "";
+    private String itemCategory = "";
     private String lockerName = "";
     private String lockerLocation = "";
     private String lockerPin = "";
     private String inventoryID = "";
+    private String inventoryAssetNo="";
     private String inventoryAssetDescription = "";
     private String inventorylocation = "";
 	private String inventoryTag = "";
@@ -152,7 +156,7 @@ public class StudentScanQR extends Fragment {
     public void retrieveloanableInvDetail(){
 
         //Go into database and retrieve inventory items for loan
-        StringRequest itemReq =new StringRequest(Request.Method.POST,url+ "retrieveLoanableInventoryDetail.php", new Response.Listener<String>() {
+        StringRequest itemReq =new StringRequest(Request.Method.POST,url+ "loanitemdetail.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -162,13 +166,31 @@ public class StudentScanQR extends Fragment {
                     if (jsonObject.getString("status").equals("Success")){
 
                         //Store loanable inventory details
+                        itemCategory = jsonObject.getString("category");
+                        inventoryAssetNo = jsonObject.getString("assetNo");
                         inventoryAssetDescription = jsonObject.getString("assetDescription");
-                        inventorylocation = jsonObject.getString("assetLocation");
+                        //inventorylocation = jsonObject.getString("assetLocation");
                         inventoryID = jsonObject.getString("id");
-                        inventoryTag = jsonObject.getString("tag");
+                        //inventoryTag = jsonObject.getString("tag");
 
+
+                        AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+                        builder1.setTitle("Locker Details");
+                        builder1.setMessage("Resource Name : " + inventoryAssetDescription);
+                        builder1.setCancelable(true);
+
+                        builder1.setPositiveButton(
+                                "Request",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        transitIntoNewLoanFragment();
+                                    }
+                                });
+
+                        AlertDialog alert11 = builder1.create();
+                        alert11.show();
                         //Go into new loan fragment with details
-                        transitIntoNewLoanFragment();
+
                     }
 
                     else if (jsonObject.getString("status").equals("Fail")){
@@ -178,13 +200,13 @@ public class StudentScanQR extends Fragment {
                     }
 
                 } catch (JSONException e) {
-                    Toast.makeText(getActivity(), "An error has occured", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "An JSON error has occured", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "An error has occured", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "An Response error has occured", Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
@@ -193,7 +215,7 @@ public class StudentScanQR extends Fragment {
                 //Details to be submitted into database to retrieve inventory items
                 Map<String, String>  params = new HashMap<String, String>();
                 params.put("inventoryId", inventoryID);
-                params.put("category", Category);
+                //params.put("category", Category);
                 return params;
             }
         };
@@ -270,6 +292,10 @@ public class StudentScanQR extends Fragment {
                     else if(jsonObject.getString("status").equals("Fail")){
                         //Tell user that they cannot view the details because locker doesnt belong to them
                         displayLKRdetailsNotAvailable();
+                    }
+                    else if (jsonObject.getString("status").equals("No Locker"))
+                    {
+                        Toast.makeText(getActivity(), "There is no available locker at this time", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {

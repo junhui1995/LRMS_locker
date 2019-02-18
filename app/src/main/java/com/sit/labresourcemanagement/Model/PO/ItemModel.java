@@ -12,6 +12,16 @@ public class ItemModel {
     String assetDescription;
     String category;
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    String location;
+
 
     public String getAssetNo() {
         return assetNo;
@@ -48,11 +58,12 @@ public class ItemModel {
 
 
 
-    public ItemModel(String id,String assetNo,String assetDescription,String category){
+    public ItemModel(String id,String assetNo,String assetDescription,String category,String location){
         this.assetNo = assetNo;
         this.id = id;
         this.assetDescription = assetDescription;
         this.category = category;
+        this.location = location;
 
     }
 

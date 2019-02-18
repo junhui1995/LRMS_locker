@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -51,6 +52,7 @@ public class StudentItemFragment extends Fragment {
 
     //Variables Declaration
     List<ItemModel> itemModelList;
+    String inventoryAssetDescription1,Category1,inventoryId1;
 
 
     @Nullable
@@ -60,7 +62,7 @@ public class StudentItemFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_student_items, container, false);
         lvLoanItems = view.findViewById(R.id.lvLoanableItems);
         //Dont display divider cause using card view
-        lvLoanItems.setDivider(null);
+        //lvLoanItems.setDivider(null);
 
         //Initialize arraylist
         itemModelList = new ArrayList<>();
@@ -68,6 +70,29 @@ public class StudentItemFragment extends Fragment {
         getItems();
 
         return view;
+    }
+    public void changeFragment(String inventoryAssetDescriptio, String Categor, String inventoryI,String location){
+
+        //Fragment fragment = new StudentNewLoanFragment();
+        StudentNewLoanFragment fragment = new StudentNewLoanFragment();
+        //StudentViewItemAdapter studentViewItemAdapter = new StudentViewItemAdapter(getContext(), itemModelList, StudentItemFragment.this);
+        //Prepare data to be inserted into StudentNewLoanFragment fragment
+        Bundle bundleObj = new Bundle();
+
+        //inventoryAssetDescription1 = studentViewItemAdapter.inventoryAssetDescription;
+        //Category1 = studentViewItemAdapter.Category;
+        //inventoryId1 = studentViewItemAdapter.inventoryID;
+
+        bundleObj.putString("category",Categor);
+        bundleObj.putString("assetDescription",inventoryAssetDescriptio);
+        bundleObj.putString("InventoryID",inventoryI);
+        bundleObj.putString("location",location);
+        fragment.setArguments(bundleObj);
+            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.content_frame, fragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+
     }
 
     public void getItems() {
@@ -84,13 +109,13 @@ public class StudentItemFragment extends Fragment {
                         JSONObject loanObject = jsonArrayitems.getJSONObject(i);
 
 
-                        ItemModel itemModel = new ItemModel(loanObject.getString("id"),loanObject.getString("assetNo"), loanObject.getString("assetDescription"), loanObject.getString("category"));
+                        ItemModel itemModel = new ItemModel(loanObject.getString("id"),loanObject.getString("assetNo"), loanObject.getString("assetDescription"), loanObject.getString("category"), loanObject.getString("location"));
 
 
                         itemModelList.add(itemModel);
                     }
 
-                    lvLoanItems.setAdapter(new StudentViewItemAdapter(getContext(), itemModelList));
+                    lvLoanItems.setAdapter(new StudentViewItemAdapter(getContext(), itemModelList, StudentItemFragment.this));
 
 
                 } catch (JSONException e) {

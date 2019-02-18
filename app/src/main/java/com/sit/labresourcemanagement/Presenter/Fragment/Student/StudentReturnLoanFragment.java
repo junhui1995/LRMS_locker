@@ -22,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.sit.labresourcemanagement.Model.ApiRoutes;
+import com.sit.labresourcemanagement.Model.LockerDetails;
 import com.sit.labresourcemanagement.Model.SharedPrefManager;
 import com.sit.labresourcemanagement.Model.Student.StudentReturnModel;
 import com.sit.labresourcemanagement.Model.Student.StudentReturnRequestModel;
@@ -49,6 +50,8 @@ public class StudentReturnLoanFragment extends Fragment {
 
     //Variables for this fragment
     List<StudentReturnModel> listStudItemReturn;
+    //this is to get the locker for student to return item
+    //private HashMap<String,LockerDetails> hmlockIDtoLockerdetails;
 
     public StudentReturnLoanFragment(){}
 
@@ -59,13 +62,15 @@ public class StudentReturnLoanFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_student_loan_return, container, false);
         fabreturn = view.findViewById(R.id.addItemReturn);
 
-        itemReturn = view.findViewById(R.id.lvReturnRequest);
+        itemReturn = view.findViewById(R.id.lvItemReturn);
         itemReturn.setDivider(null);
 
         //Prepare the list student return request and load all return request data in
         listStudItemReturn = new ArrayList<>();
         //Get all the items currently on return
         loadCurrentReturnReqData();
+
+        //hmlockIDtoLockerdetails = new HashMap<String,LockerDetails>();
 
         fabreturn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,33 +88,34 @@ public class StudentReturnLoanFragment extends Fragment {
         return view;
     }
     private void loadCurrentReturnReqData() {
-        StringRequest currentReturnReq=new StringRequest(Request.Method.POST,url+ "getAllReturnRequestStudent.php", new Response.Listener<String>() {
+        StringRequest currentReturnReq=new StringRequest(Request.Method.POST,url+ "getStudentReturnLoan.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject=new JSONObject(response);
                     Log.d("ret",jsonObject.toString());
-                    JSONArray jsonArray=jsonObject.getJSONArray("userloanDetails");
-                    JSONArray jsonArrayInvDetails = jsonObject.getJSONArray("intDetails");
+                    JSONArray jsonArray=jsonObject.getJSONArray("loanReturnDetails");
+
 
                     if(jsonObject.getString("status").equals("Success")){
 
                         //If success get the details out
                         for (int i=0;i<jsonArray.length();i++){
                             JSONObject jsonObject1=jsonArray.getJSONObject(i);
-                            String assetDesc = jsonArrayInvDetails.getString(i);
 
-                            StudentReturnModel studentReturnModel=new StudentReturnModel(jsonObject1.getString("loanId"),jsonObject1.getString("userid"),jsonObject1.getString("assetnumber"),jsonObject1.getString("poId"),jsonObject1.getString("remarks"),assetDesc);
+
+                            StudentReturnModel studentReturnModel=new StudentReturnModel(jsonObject1.getString("loanId"),jsonObject1.getString("userId"),jsonObject1.getString("inventoryId"),jsonObject1.getString("poId"),jsonObject1.getString("status"));
                             listStudItemReturn.add(studentReturnModel);
+
+
                         }
 
-                        //Set the adapter for display
                         itemReturn.setAdapter(new StudentReturnAdapter(getContext(),listStudItemReturn));
-
                     }
                     else if(jsonObject.getString("status").equals("Fail")){
                         Toast.makeText(getActivity(), "Return request Fail", Toast.LENGTH_SHORT).show();
                     }
+                    //Set the adapter for display
 
 
                 } catch (JSONException e) {

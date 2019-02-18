@@ -111,6 +111,9 @@ public class StudentNewLoanFragment extends Fragment {
             location = bundle.getString("location");
             tag = bundle.getString("tag");
 
+
+
+
             prevFragment = "Scan";
         }
     }
@@ -119,6 +122,7 @@ public class StudentNewLoanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        Bundle bundle =getArguments();
         //Initialize progress dialog
         progressDialog = new ProgressDialog(getContext());
 
@@ -141,8 +145,10 @@ public class StudentNewLoanFragment extends Fragment {
         btn_submit = view.findViewById(R.id.btn_submit);
         tvCategory = view.findViewById(R.id.category_text);
         tvItem = view.findViewById(R.id.tvItem);
-        tvLocation = view.findViewById(R.id.TextVeiew);
+        tvLocation = view.findViewById(R.id.tvLocation);
         btn_Learning_Gallery = view.findViewById(R.id.btn_search_equipment);
+
+
 
 /*        //Get current time stamp
         currentDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
@@ -236,28 +242,39 @@ public class StudentNewLoanFragment extends Fragment {
 
                 }
             });
+                // Set listener for spinners
+                categories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        selected_category = arrayListOfCategories.get(i).toString();
 
-            // Set listener for spinners
-            categories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    selected_category = arrayListOfCategories.get(i).toString();
+                        //Make sure item list is empty before retrieving data from db
+                        arrayListOfItems.clear();
+                        arrayIDs = new ArrayList();
+                        //Set text view location to false since you are clearing arrayIDs so it would not display inaccurate details
+                        tvLocation.setVisibility(View.INVISIBLE);
+                        getItemdata();
+/*
+                        for (int j=0;j<arrayListOfCategories.size();j++)
+                        {
+                            if (arrayListOfCategories.get(j).toString().equals(category))
 
-                    //Make sure item list is empty before retrieving data from db
-                    arrayListOfItems.clear();
-                    arrayIDs = new ArrayList();
-                    //Set text view location to false since you are clearing arrayIDs so it would not display inaccurate details
-                    tvLocation.setVisibility(View.INVISIBLE);
+                            categories.setSelection(j);break;
+                        }
+*/
 
 
-                    getItemdata();
-                }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
 
-                }
-            });
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+
+
             item.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -308,7 +325,7 @@ public class StudentNewLoanFragment extends Fragment {
             tvItem.setVisibility(View.VISIBLE);
 
             //Show button to lead user to learning gallery tagged to the equipment if available.
-			if (!tag.equals("null")){
+			/*if (!tag.equals("null")){
 				btn_Learning_Gallery.setVisibility(View.VISIBLE);
 
 				btn_Learning_Gallery.setOnClickListener(new View.OnClickListener() {
@@ -317,7 +334,7 @@ public class StudentNewLoanFragment extends Fragment {
 						transitToLearningGallery(tag);
 					}
 				});
-			}
+			}*/
 
             tvCategory.setText("Category selected : " + category);
             tvItem.setText("Item selected : " + inventoryAssetDescription);

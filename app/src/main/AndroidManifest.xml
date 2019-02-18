@@ -29,6 +29,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Presenter.Activity.QrCodeScannerActivity" />
+
     </application>
 
 </manifest>

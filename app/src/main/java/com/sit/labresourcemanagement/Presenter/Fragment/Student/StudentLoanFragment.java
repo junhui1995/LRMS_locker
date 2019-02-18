@@ -27,10 +27,10 @@ public class StudentLoanFragment extends Fragment implements View.OnClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_student_loan, container, false);
 
-        ibNewLoan = (ImageButton) rootview.findViewById(R.id.imageButtonNewLoan);
-        ibLoanStatus = (ImageButton) rootview.findViewById(R.id.imageButtonLoanStatus);
-        ibReturnLoan = (ImageButton) rootview.findViewById(R.id.imageButtonReturnLoan);
-        ibScanQR = (ImageButton) rootview.findViewById(R.id.imageButtonScanQR);
+        ibNewLoan = rootview.findViewById(R.id.imageButtonNewLoan);
+        ibLoanStatus =  rootview.findViewById(R.id.imageButtonLoanStatus);
+        ibReturnLoan = rootview.findViewById(R.id.imageButtonReturnLoan);
+        ibScanQR = rootview.findViewById(R.id.imageButtonScanQR);
 
         ibNewLoan.setOnClickListener(this);
         ibLoanStatus.setOnClickListener(this);
@@ -56,7 +56,7 @@ public class StudentLoanFragment extends Fragment implements View.OnClickListene
                 break;
 
             case R.id.imageButtonReturnLoan:
-            	fragment = new StudentReturnRequest();
+            	fragment = new StudentReturnLoanFragment();
                 break;
             case R.id.imageButtonScanQR:
                 fragment = new StudentScanQR();

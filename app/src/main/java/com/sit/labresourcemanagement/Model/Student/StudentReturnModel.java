@@ -10,13 +10,6 @@ public class StudentReturnModel {
         this.userId = userId;
     }
 
-    public String getAssetNumber() {
-        return assetNumber;
-    }
-
-    public void setAssetNumber(String assetNumber) {
-        this.assetNumber = assetNumber;
-    }
 
     public String getAssetDescription() {
         return assetDescription;
@@ -26,13 +19,13 @@ public class StudentReturnModel {
         this.assetDescription = assetDescription;
     }
 
-    public String getLookerId() {
+/*    public String getLookerId() {
         return lookerId;
     }
 
     public void setLookerId(String lookerId) {
         this.lookerId = lookerId;
-    }
+    }*/
 
     public String getLoanId() {
         return loanId;
@@ -51,19 +44,60 @@ public class StudentReturnModel {
     }
 
     String userId;
-    String assetNumber;
+
+    public String getInventoryId() {
+        return inventoryId;
+    }
+
+    public void setInventoryId(String inventoryId) {
+        this.inventoryId = inventoryId;
+    }
+
+    public String getLockerId() {
+        return lockerId;
+    }
+
+    public void setLockerId(String lockerId) {
+        this.lockerId = lockerId;
+    }
+
+    String inventoryId;
     String assetDescription;
-    String lookerId;
+    String lockerId;
     String loanId;
     String returnId;
 
-    public StudentReturnModel(String loanId,String userId, String assetNumber, String assetDescription, String lookerId,  String returnId) {
-        this.userId = userId;
-        this.assetNumber = assetNumber;
-        this.assetDescription = assetDescription;
-        this.lookerId = lookerId;
+    public String getPoId() {
+        return PoId;
+    }
+
+    public void setPoId(String poId) {
+        PoId = poId;
+    }
+
+    String PoId;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    String status;
+
+    public StudentReturnModel(String loanId,String userId, String inventoryId,String Poid, String status) {
         this.loanId = loanId;
-        this.returnId = returnId;
+        this.userId = userId;
+        this.inventoryId = inventoryId;
+        this.PoId = Poid;
+        this.status = status;
+        //this.lookerId = lookerId;
+
+
+
+
     }
 
 

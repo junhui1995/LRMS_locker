@@ -257,9 +257,15 @@ public class POLoanPendingApprovalAdapter extends RecyclerView.Adapter<POLoanPen
 			public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 				Random r = new Random();
 				int pin = r.nextInt(9999) + 0;
-				if (pin < 1000) {
+				if (pin < 1000)
+				{
 					tvPin.setText("0" + pin);
-				} else {
+				}
+				else if (pin < 100)
+				{
+					tvPin.setText("00" + pin);
+				}
+				else {
 					tvPin.setText("" + pin);
 				}
 			}

@@ -1,11 +1,6 @@
 package com.sit.labresourcemanagement.Presenter.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,38 +15,40 @@ import com.sit.labresourcemanagement.Model.PO.ItemModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sit.labresourcemanagement.Presenter.Fragment.Student.StudentNewLoanFragment;
+import com.sit.labresourcemanagement.Presenter.Fragment.Student.StudentItemFragment;
 import com.sit.labresourcemanagement.R;
 
-public class StudentViewItemAdapter extends BaseAdapter  {
+public class StudentViewItemAdapter extends BaseAdapter {
+
 //extends RecyclerView.Adapter<StudentViewItemAdapter.ViewHolder>
 
     //Declaration for API Route
     String url = ApiRoutes.getUrl();
 
-    TextView tvitemname,tvassetno,tvid,tvcategory,tvquantity;
+    TextView tvitemname, tvassetno, tvid, tvcategory, tvquantity, tvlocation;
     Button btnRequest;
     Context context;
     List<ItemModel> itemModelList = new ArrayList<>();
 
-    Fragment fragment = new StudentNewLoanFragment();
+    StudentItemFragment fragment;
+
+    public String inventoryAssetDescription,Category,inventoryID,location;
 
 
     View view;
-    String category,item;
 
     private static LayoutInflater inflater = null;
 
-    public StudentViewItemAdapter( Context context, List<ItemModel> itemModelList)
-    {
+    public StudentViewItemAdapter(Context context, List<ItemModel> itemModelList, StudentItemFragment fragment) {
         this.itemModelList = itemModelList;
         this.context = context;
+        this.fragment = fragment;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return  itemModelList.size();
+        return itemModelList.size();
     }
 
 
@@ -63,8 +60,6 @@ public class StudentViewItemAdapter extends BaseAdapter  {
     public long getItemId(int position) {
         return position;
     }
-
-
 
 
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -79,27 +74,33 @@ public class StudentViewItemAdapter extends BaseAdapter  {
         tvassetno = vi.findViewById(R.id.tvAssetNo);
         tvitemname = vi.findViewById(R.id.tvName);
         tvcategory = vi.findViewById(R.id.tvCategory);
+        tvlocation = vi.findViewById(R.id.tvitemlocation);
         btnRequest = vi.findViewById(R.id.btnRequestitem);
+
 
         tvid.setText(itemModelList.get(position).getId());
         tvassetno.setText(itemModelList.get(position).getAssetNo());
         tvitemname.setText(itemModelList.get(position).getAssetDescription());
         tvcategory.setText(itemModelList.get(position).getCategory());
+        tvlocation.setText(itemModelList.get(position).getLocation());
 
         btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Snackbar.make();
                 Toast.makeText(context, "Something went wrong here..", Toast.LENGTH_SHORT).show();
+
+                inventoryAssetDescription = itemModelList.get(position).getAssetDescription();
+                Category =  itemModelList.get(position).getCategory();
+                inventoryID = itemModelList.get(position).getId();
+                location = itemModelList.get(position).getLocation();
+                //change fragment to new loan
+
+                fragment.changeFragment(inventoryAssetDescription,Category,inventoryID,location);
             }
         });
         return vi;
 
     }
-
-    private FragmentManager getFragmentManager() {
-        return null;
-    }
-
-
 }
+

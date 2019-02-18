@@ -5,9 +5,9 @@
     android:layout_height="match_parent"
     android:layout_margin="10dp"
     tools:context="com.sit.labresourcemanagement.Presenter.Fragment.Student.StudentScanToReturnItem">
-<!--Done By Hiew Jun Hui-->
+
     <TextView
-        android:id="@+id/TextVeiew"
+        android:id="@+id/tvLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -35,7 +35,7 @@
         app:layout_constraintEnd_toStartOf="@+id/ivDateReturn"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextVeiew" />
+        app:layout_constraintTop_toBottomOf="@+id/tvLocation" />
 
     <ImageView
         android:id="@+id/ivDateReturn"
@@ -46,7 +46,7 @@
         android:layout_weight=".5"
         android:src="@drawable/ic_action_calendar_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TextVeiew" />
+        app:layout_constraintTop_toBottomOf="@+id/tvLocation" />
 
 
     <EditText
