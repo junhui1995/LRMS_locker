@@ -8,7 +8,7 @@ public class ApiRoutes {
 
 
 
-     private static String base_url = "http://192.168.1.11/labresourcemgmt/";
+     private static String base_url = "http://47.74.244.217/labresourcemgmt/";
     //private static String base_url = "http://192.168.1.11/labresourcemgmt/";
 	private static String url = base_url + "api/";
 

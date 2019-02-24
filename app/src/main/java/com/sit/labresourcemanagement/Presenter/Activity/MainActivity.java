@@ -1,12 +1,18 @@
 package com.sit.labresourcemanagement.Presenter.Activity;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -32,6 +38,7 @@ import com.sit.labresourcemanagement.Presenter.Fragment.Student.StudentLoanFragm
 import com.sit.labresourcemanagement.Model.SharedPrefManager;
 import com.sit.labresourcemanagement.R;
 
+import static android.Manifest.permission_group.STORAGE;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -52,6 +59,9 @@ public class MainActivity extends AppCompatActivity
     private TextView name, email;
     private boolean doubleBackToExitPressedOnce = false;
 
+
+    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
+    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 2;
     /*All main fragments*/
     //Student
     Fragment studentHomeFragment = null;
@@ -91,6 +101,7 @@ public class MainActivity extends AppCompatActivity
         // Get the role of current user
         USER_ROLE = SharedPrefManager.getInstance(getApplicationContext()).getUser().getRole();
 
+
         /*Navigation drawer*/
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -122,9 +133,65 @@ public class MainActivity extends AppCompatActivity
             checkoutAssetFragment = new POCheckInOutAsset();
             pendingRequestFragment = new POPendingRequest();
 //            recentCheckoutFragment = new PORecentCheckout();
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                // Permission is not granted
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+            }
+            else
+            {
+
+            }
+
         }
 
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay!
+                    Toast.makeText(getApplicationContext(), "Permission Granted, Now you can access camera", Toast.LENGTH_LONG).show();
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (shouldShowRequestPermissionRationale(STORAGE)) {
+                            showMessageOKCancel("You need to allow access to both the permissions",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                                requestPermissions(new String[]{STORAGE},
+                                                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+                                            }
+                                        }
+                                    });
+                            return;
+                        }
+                    }
+                }
+                return;
+            }
+
+        }
+    }
+
+    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+        new android.support.v7.app.AlertDialog.Builder(MainActivity.this)
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
+    }
+
+
 
     @Override
     protected void onStart() {

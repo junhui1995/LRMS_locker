@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -24,6 +25,7 @@ import com.sit.labresourcemanagement.Presenter.Adapter.POLoanPendingApprovalAdap
 import com.sit.labresourcemanagement.Model.PO.PendingBookingModel;
 import com.sit.labresourcemanagement.Model.PO.PendingLoanModel;
 import com.sit.labresourcemanagement.Model.PO.PendingReturnModel;
+import com.sit.labresourcemanagement.Presenter.Fragment.Student.StudentNewLoanFragment;
 import com.sit.labresourcemanagement.R;
 
 import org.json.JSONArray;
@@ -129,7 +131,7 @@ public class POPendingRequest extends Fragment{
 							);
 							pendingLoanList.add(modelClass);
 						}
-						adapter = new POLoanPendingApprovalAdapter(pendingLoanList, rootview.getContext());
+						adapter = new POLoanPendingApprovalAdapter(pendingLoanList, rootview.getContext(), POPendingRequest.this);
 						recyclerView.setAdapter(adapter);
 					} else {
 						String msg;
@@ -140,6 +142,7 @@ public class POPendingRequest extends Fragment{
 						Snackbar.make(getView(), msg, Snackbar.LENGTH_SHORT).show();
 						recyclerView.setAdapter(null);
 					}
+
 
 				} catch (JSONException e) {
 					//e.printStackTrace();
@@ -154,6 +157,25 @@ public class POPendingRequest extends Fragment{
         RequestQueue pendingLoanQueue = Volley.newRequestQueue(getContext());
         pendingLoanQueue.add(pendingLoanReq);
     }
+
+
+
+    //direct PO straight to check out asset
+	public void transitIntoCheckoutFragment(){
+		//This function is for the PO to directly go to checkout asset
+
+		// Create fragment that you would want to go to
+		POCheckInOutAsset poCheckInOutAsset = new POCheckInOutAsset();
+
+		//Transit to the new fragment
+		FragmentTransaction transaction = getFragmentManager().beginTransaction();
+		transaction.replace(R.id.content_frame, poCheckInOutAsset);
+		transaction.addToBackStack(null);
+
+
+		// Commit the transaction
+		transaction.commit();
+	}
 
     private void loadBooking() {
 		pendingBookingList = new ArrayList<>();

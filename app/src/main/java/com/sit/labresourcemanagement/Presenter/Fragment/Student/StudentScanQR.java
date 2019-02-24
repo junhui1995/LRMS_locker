@@ -134,7 +134,7 @@ public class StudentScanQR extends Fragment {
                     else if(lockerID.isEmpty()){
                         //if locker id is empty,
 
-                        //Retrieve all the loanable inventory items from database/
+                        //loanable inventory item from database based on scan qr code
                         retrieveloanableInvDetail();
 
                     }
@@ -176,14 +176,16 @@ public class StudentScanQR extends Fragment {
 
                         AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
                         builder1.setTitle("Locker Details");
-                        builder1.setMessage("Resource Name : " + inventoryAssetDescription);
+                        builder1.setMessage( "Asset No:" + inventoryAssetNo + "\n"+"Resource Name : " + inventoryAssetDescription + "\n" + "Category:" + itemCategory);
                         builder1.setCancelable(true);
 
                         builder1.setPositiveButton(
                                 "Request",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        transitIntoNewLoanFragment();
+
+                                        checkitemloanstatus(inventoryID);
+
                                     }
                                 });
 
@@ -223,6 +225,51 @@ public class StudentScanQR extends Fragment {
         requestQueue.add(itemReq);
     }
 
+    private void checkitemloanstatus(final String id)
+    {
+        StringRequest itemReq =new StringRequest(Request.Method.POST,url+ "checkitemloanstatus.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    Log.e(">>>>>>>>Response", response);
+                    JSONObject jsonObject=new JSONObject(response);
+                    if(jsonObject.getString("status").equals("Success")){
+                        inventorylocation = jsonObject.getString("location");
+                        transitIntoNewLoanFragment();
+                    }
+                    else if (jsonObject.getString("status").equals("Fail1")) {
+                        Toast.makeText(getActivity(), "statement not running", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+
+                    {
+                        Toast.makeText(getActivity(), "Item is not available for loan at this time", Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (JSONException e) {
+                    Toast.makeText(getActivity(), "A JSON Exception error has occurred", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "An Response error has occurred", Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                //Details to be submitted into database to retrieve inventory items
+                Map<String, String>  params = new HashMap<String, String>();
+
+                params.put("inventoryid",id);
+                return params;
+            }
+        };
+        RequestQueue requestQueue=Volley.newRequestQueue(getActivity());
+        requestQueue.add(itemReq);
+
+    }
     private void scanQR() {
         Intent i = new Intent(getActivity(), QrCodeScannerActivity.class);
         i.putExtra("calledFrom","StudentScanEQ");
@@ -360,8 +407,11 @@ public class StudentScanQR extends Fragment {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
+
                         //go back home page
                         getFragmentManager().popBackStack();
+
+                        scanQR();
                     }
                 });
 
@@ -381,6 +431,7 @@ public class StudentScanQR extends Fragment {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         displayLKRdetails();
+
                         checkOutLocker();
                     }
                 });

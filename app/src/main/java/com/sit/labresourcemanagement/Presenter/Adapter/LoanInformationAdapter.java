@@ -105,6 +105,7 @@ public class LoanInformationAdapter extends BaseAdapter{
         //Set color for status
         setStatusColor(listofLoanInformation.get(position).getStatus(),tvStatus);
 
+
         tvRejReason.setText(listofLoanInformation.get(position).getReasonReject());
         tvReasonofLoan.setText(listofLoanInformation.get(position).getReasonOfLoan());
         tvPoId.setText(listofLoanInformation.get(position).getPoId());
@@ -175,6 +176,7 @@ public class LoanInformationAdapter extends BaseAdapter{
             btnLockerDetails.setVisibility(View.GONE);
         }
 
+
         //Check whether loan is pending status so can give user chance to delete request
         if(listofLoanInformation.get(position).getStatus().equalsIgnoreCase("Pending Approval")){
             tvDelete.setVisibility(View.VISIBLE);
@@ -195,8 +197,18 @@ public class LoanInformationAdapter extends BaseAdapter{
             tvReturn.setVisibility(View.GONE);
         }
 
+
+        if(listofLoanInformation.get(position).getStatus().equalsIgnoreCase("Returned")){
+            btnLockerDetails.setVisibility(View.GONE);
+
+        }
+        else{
+            btnLockerDetails.setVisibility(View.VISIBLE);
+        }
+
         return vi;
     }
+
     public void putIntoLoanReturn(final int position)
     {
         //insert record into database

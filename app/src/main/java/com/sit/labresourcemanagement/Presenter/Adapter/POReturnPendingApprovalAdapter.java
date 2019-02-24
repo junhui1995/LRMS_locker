@@ -183,6 +183,7 @@ public class POReturnPendingApprovalAdapter extends RecyclerView.Adapter<PORetur
 					if (jsonObject.getString("status").equals("Success")){
 						Snackbar.make(view, "Request approved!", Snackbar.LENGTH_SHORT).show();
 						removeFromList(position);
+
 					}
 					else {
 						Snackbar.make(view, ERROR_MESSAGE, Snackbar.LENGTH_SHORT).show();

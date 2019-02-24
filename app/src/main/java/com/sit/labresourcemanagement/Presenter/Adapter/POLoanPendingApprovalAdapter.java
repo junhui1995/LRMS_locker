@@ -29,6 +29,7 @@ import com.sit.labresourcemanagement.Model.ApiRoutes;
 import com.sit.labresourcemanagement.Model.LockerDetails;
 import com.sit.labresourcemanagement.Model.PO.PendingLoanModel;
 import com.sit.labresourcemanagement.Model.SharedPrefManager;
+import com.sit.labresourcemanagement.Presenter.Fragment.PO.POPendingRequest;
 import com.sit.labresourcemanagement.R;
 
 import org.json.JSONArray;
@@ -53,10 +54,12 @@ public class POLoanPendingApprovalAdapter extends RecyclerView.Adapter<POLoanPen
 	List<String> locationList, boxList;
 	List<NumberPicker> numberPickerList;
 	ArrayAdapter<String> locationAdapter, boxesAdapter;
+	POPendingRequest fragment;
 
-    public POLoanPendingApprovalAdapter(List<PendingLoanModel> pendingApprovalList, Context context) {
+    public POLoanPendingApprovalAdapter(List<PendingLoanModel> pendingApprovalList, Context context, POPendingRequest fragment) {
         this.pendingApprovalList = pendingApprovalList;
         this.context = context;
+        this.fragment = fragment;
 
         mLockerAvailable = true;
         locationList = new ArrayList<>();
@@ -305,6 +308,7 @@ public class POLoanPendingApprovalAdapter extends RecyclerView.Adapter<POLoanPen
 						approveLoan(pendingApprovalList.get(position).getLoanid_pendingApprov(), position, lockerId, pin);
 
 						dialog.dismiss();
+						fragment.transitIntoCheckoutFragment();
 					}
 				});
 			}

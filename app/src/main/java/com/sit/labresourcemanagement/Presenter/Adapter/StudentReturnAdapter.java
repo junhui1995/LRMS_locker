@@ -131,6 +131,7 @@ public class StudentReturnAdapter extends BaseAdapter {
 
 
 
+
             }
         });
 
@@ -175,7 +176,7 @@ public class StudentReturnAdapter extends BaseAdapter {
                         String lockerid = jsonObject.getString("lockerid");
                         lockerDialog(lockerid);
                         Toast.makeText(context, "Locker has been assigned", Toast.LENGTH_SHORT).show();
-
+                        btnGetLocker.setVisibility(View.GONE);
                         //update adapter
                         notifyDataSetChanged();
                     }

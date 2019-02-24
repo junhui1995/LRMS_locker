@@ -21,9 +21,11 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 import static android.Manifest.permission_group.CAMERA;
 
+
 public class QrCodeScannerActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
     private static final int REQUEST_CAMERA = 1;
+
     private ZXingScannerView mScannerView;
     private static int camId = Camera.CameraInfo.CAMERA_FACING_BACK;
     String QRCodeResult;
@@ -50,6 +52,7 @@ public class QrCodeScannerActivity extends AppCompatActivity implements ZXingSca
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
         if (currentapiVersion >= android.os.Build.VERSION_CODES.M) {
             if (checkPermission()) {
+
                 //Do nothing
             } else {
                 requestPermission();
@@ -61,8 +64,10 @@ public class QrCodeScannerActivity extends AppCompatActivity implements ZXingSca
         return ( ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA ) == PackageManager.PERMISSION_GRANTED);
     }
 
+
     private void requestPermission() {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);
+
     }
 
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
@@ -95,6 +100,7 @@ public class QrCodeScannerActivity extends AppCompatActivity implements ZXingSca
                 break;
         }
     }
+
 
     private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
         new android.support.v7.app.AlertDialog.Builder(QrCodeScannerActivity.this)

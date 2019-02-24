@@ -93,6 +93,7 @@ public class POPendingCheckoutAdapter extends RecyclerView.Adapter<POPendingChec
 		holder.confirm.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+
 				fragment.setPosition(position, "checkout");
 				fragment.scanQR();
 			}
