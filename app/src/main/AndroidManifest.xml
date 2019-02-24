@@ -8,6 +8,8 @@
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_sit_logo"
@@ -29,7 +31,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".Presenter.Activity.QrCodeScannerActivity" />
-
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.sit.labresourcemanagement.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <!-- ressource file to create -->
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths">
+            </meta-data>
+        </provider>
     </application>
 
 </manifest>

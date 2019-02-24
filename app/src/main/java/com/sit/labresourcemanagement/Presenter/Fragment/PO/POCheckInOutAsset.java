@@ -1,21 +1,34 @@
 package com.sit.labresourcemanagement.Presenter.Fragment.PO;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StrictMode;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -24,6 +37,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.zxing.WriterException;
 import com.sit.labresourcemanagement.Presenter.Activity.QrCodeScannerActivity;
 import com.sit.labresourcemanagement.Presenter.Adapter.POPendingCheckInAdapter;
 import com.sit.labresourcemanagement.Presenter.Adapter.POPendingCheckoutAdapter;
@@ -37,12 +51,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+import androidmads.library.qrgenearator.QRGContents;
+import androidmads.library.qrgenearator.QRGEncoder;
+import androidmads.library.qrgenearator.QRGSaver;
+
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.WINDOW_SERVICE;
+import static android.support.v4.content.FileProvider.getUriForFile;
+
 
 public class POCheckInOutAsset extends Fragment {
 
@@ -58,6 +81,19 @@ public class POCheckInOutAsset extends Fragment {
 	String url = ApiRoutes.getUrl();
 	int position = -1;
 	String job;
+	public final static int QRcodeWidth = 500 ;
+	String inputValue;
+	Bitmap bitmap;
+	String TAG = "GenerateQRCode";
+	String savePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/QRCode/";
+
+
+
+	QRGEncoder qrgEncoder;
+    boolean save;
+    String result;
+
+    String inventoryid;
 
 
     public POCheckInOutAsset() {
@@ -75,7 +111,7 @@ public class POCheckInOutAsset extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //Initialize view
         rootview = inflater.inflate(R.layout.fragment_po_checkinout, container, false);
-
+		loadPendingCheckout();
         tabLayout = rootview.findViewById(R.id.tabLayout_checkinout);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 			@Override
@@ -84,11 +120,12 @@ public class POCheckInOutAsset extends Fragment {
 
 				switch (position){
 					case 0:
-						loadPendingCheckIn();
+						loadPendingCheckout();
 						break;
 
 					case 1:
-						loadPendingCheckout();
+
+						loadPendingCheckIn();
 						break;
 
 				}
@@ -109,7 +146,7 @@ public class POCheckInOutAsset extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        loadPendingCheckIn();
+
 		//Snackbar.make(rootview, "Error", Snackbar.LENGTH_SHORT).show();
 
         return rootview;
@@ -184,6 +221,7 @@ public class POCheckInOutAsset extends Fragment {
 			@Override
 			public void onResponse(String response) {
 				try {
+					Log.e(">>>>>>WRONG", response);
 					JSONObject jsonObject = new JSONObject(response);
 
 					if (jsonObject.getString("status").equals("Success")) {
@@ -264,8 +302,10 @@ public class POCheckInOutAsset extends Fragment {
 				Log.e("res", job);
 
 				if(validQRformat && job.equals("checkin")){
-					checkInAsset(position);
+					//checkInAsset(position);
+					checkInAsset(pendingCheckInList.get(position).getLoanId());
 				} else if (validQRformat && job.equals("checkout")){
+
 					checkoutAsset(pendingCheckoutList.get(position).getLoanId());
 				} else {
 					Snackbar.make(rootview, "Item mismatch.", Snackbar.LENGTH_SHORT).show();
@@ -283,8 +323,11 @@ public class POCheckInOutAsset extends Fragment {
 
 				if(job.equals("checkin")){
 					return(splitedStr[2].equals(pendingCheckInList.get(position).getInventoryId()));
+
 				} else if (job.equals("checkout")){
+					inventoryid = splitedStr[2];
 					return(splitedStr[2].equals(pendingCheckoutList.get(position).getAssetId()));
+
 				}
 
 			}
@@ -301,10 +344,14 @@ public class POCheckInOutAsset extends Fragment {
 		StringRequest checkoutReq = new StringRequest(Request.Method.POST, url + "POCheckOutAsset.php", new Response.Listener<String>() {
 			@Override
 			public void onResponse(String response) {
+
 				try {
 					JSONObject jsonObject = new JSONObject(response);
 
 					if (jsonObject.getString("status").equals("Success")) {
+
+
+					   generateQRcode(inventoryid);
 						pendingCheckoutList.remove(position);
 						adapter.notifyDataSetChanged();
 
@@ -333,7 +380,59 @@ public class POCheckInOutAsset extends Fragment {
 		checkoutQueue.add(checkoutReq);
 	}
 
-	private void checkInAsset(final int position){
+	private void generateQRcode(String inventoryID)
+	{
+		inputValue = "LRMS-EQP-" + inventoryID;
+		WindowManager manager = (WindowManager) getContext().getSystemService(WINDOW_SERVICE);
+		Display display = manager.getDefaultDisplay();
+		Point point = new Point();
+		display.getSize(point);
+		int width = point.x;
+		int height = point.y;
+		int smallerDimension = width < height ? width : height;
+		smallerDimension = smallerDimension * 3 / 4;
+
+		qrgEncoder = new QRGEncoder(
+				inputValue, null,
+				QRGContents.Type.TEXT,
+				smallerDimension);
+		try {
+			bitmap = qrgEncoder.encodeAsBitmap();
+			//qrImage.setImageBitmap(bitmap);
+			save = QRGSaver.save(savePath, inputValue, bitmap, QRGContents.ImageType.IMAGE_JPEG);
+			result = save ? "Image Saved" : "Image Not Saved";
+
+			sendEmail(inputValue + ".jpg");
+			Log.i(">>>>>>savepath", savePath );
+			//Toast.makeText(rootview, result+save+savePath, Toast.LENGTH_LONG).show();
+		} catch (WriterException e) {
+			Log.v(TAG, e.toString());
+		}
+
+
+	}
+	private void sendEmail(String filename)
+	{
+
+		File imagePath = new File(Environment.getExternalStorageDirectory(), "QRCodes");
+		File newFile = new File(imagePath, filename);
+		Uri contentUri = getUriForFile(getContext(), "com.sit.labresourcemanagement.provider", newFile);
+
+		Intent i = new Intent(Intent.ACTION_SEND);
+		i.setType("message/rfc822");
+		i.putExtra(Intent.EXTRA_EMAIL, new String[]{"ronaldohiew95@gmail.com"});
+		i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
+		i.putExtra(Intent.EXTRA_TEXT, "Receipt of Loan: " + "\n" + "LoanID:" + pendingCheckoutList.get(position).getLoanId()+ "\n" + "Userid: " + pendingCheckoutList.get(position).getUserId() + "\n" + "Resource Name: " + pendingCheckoutList.get(position).getAssetDescription() + "\n" + "Resource Number: " + pendingCheckoutList.get(position).getAssetNumber()+ "\n" + "Date loaned from: " + pendingCheckoutList.get(position).getDateFrom() + " to " + pendingCheckoutList.get(position).getDateTo() + "\n" + "\n" + "Please proceed to the designated locker to retrieve your resource. The locker number and location can be found in the LRMS mobile application.");
+		i.putExtra(Intent.EXTRA_STREAM,  contentUri);
+
+		try {
+			startActivity(Intent.createChooser(i, "Send mail..."));
+		} catch (android.content.ActivityNotFoundException ex) {
+			Snackbar.make(rootview, "There are no email clients installed.", Snackbar.LENGTH_SHORT).show();
+			//Toast.makeText(POCheckInOutAsset.this, "", Toast.LENGTH_SHORT).show();
+		}
+	}
+	private void checkInAsset(final String loanId){
 		final View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.custom_reason_dialog, null);
 
 		TextView tvReason = dialogView.findViewById(R.id.textView_reason);
@@ -365,7 +464,7 @@ public class POCheckInOutAsset extends Fragment {
 							remarks = "No Remarks";
 						}
 
-						checkInAsset(position, remarks);
+						checkInAsset(loanId, remarks);
 						dialog.dismiss();
 					}
 				});
@@ -375,20 +474,27 @@ public class POCheckInOutAsset extends Fragment {
 		dialog.show();
 	}
 
-	private void checkInAsset(final int position, final String remarks) {
-		StringRequest checkoutReq = new StringRequest(Request.Method.POST, url + "POCheckInAsset.php", new Response.Listener<String>() {
+	private void checkInAsset(final String loanID, final String remarks) {
+		StringRequest checkinReq = new StringRequest(Request.Method.POST, url + "POCheckInAsset.php", new Response.Listener<String>() {
 			@Override
 			public void onResponse(String response) {
-				try {
+                Log.i(">>>>wrong", response);
+			    try {
 					JSONObject jsonObject = new JSONObject(response);
+
 
 					if (jsonObject.getString("status").equals("Success")) {
 						pendingCheckInList.remove(position);
 						adapter.notifyDataSetChanged();
 
 						Snackbar.make(rootview, "Item checked in successfully!", Snackbar.LENGTH_SHORT).show();
-					} else {
+						//freelocker();
+					} else if (jsonObject.getString("status").equals("Fail")) {
 						Snackbar.make(rootview, "Error while checking in!", Snackbar.LENGTH_SHORT).show();
+					}
+					else
+					{
+						Snackbar.make(rootview, "Unknown Error", Snackbar.LENGTH_SHORT).show();
 					}
 
 				} catch (JSONException e) {
@@ -404,7 +510,7 @@ public class POCheckInOutAsset extends Fragment {
 			@Override
 			protected Map<String, String> getParams() throws AuthFailureError {
 				Map<String, String>  params = new HashMap<String, String>();
-				params.put("loanId", pendingCheckInList.get(position).getLoanId());
+				params.put("loanId", loanID);
 				params.put("inventoryId", pendingCheckInList.get(position).getInventoryId());
 				//params.put("returnId", pendingCheckInList.get(position).getReturnId());
 				params.put("remarks", remarks);
@@ -412,7 +518,42 @@ public class POCheckInOutAsset extends Fragment {
 			}
 		};
 		RequestQueue checkoutQueue = Volley.newRequestQueue(getContext());
+		checkoutQueue.add(checkinReq);
+	}
+	private void freelocker() {
+		StringRequest checkoutReq = new StringRequest(Request.Method.POST, url + "freelocker.php", new Response.Listener<String>() {
+			@Override
+			public void onResponse(String response) {
+				try {
+					JSONObject jsonObject = new JSONObject(response);
+
+					if (jsonObject.getString("status").equals("Success")) {
+						Snackbar.make(rootview, "Please rmb to lock back the locker!", Snackbar.LENGTH_SHORT).show();
+					} else {
+						//Snackbar.make(rootview, "Error while checking in!", Snackbar.LENGTH_SHORT).show();
+					}
+
+				} catch (JSONException e) {
+					//e.printStackTrace();
+				}
+			}
+		}, new Response.ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+
+			}
+		}) {
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("poId",SharedPrefManager.getInstance(getContext()).getUser().getId());
+				params.put("loanId", pendingCheckInList.get(position).getLoanId());
+				return params;
+			}
+		};
+		RequestQueue checkoutQueue = Volley.newRequestQueue(getContext());
 		checkoutQueue.add(checkoutReq);
 	}
+
 
 }
