@@ -4,5 +4,5 @@ public class Email {
 
 
     //testing commit
-    String test="test";
+    String test="testing";
 }

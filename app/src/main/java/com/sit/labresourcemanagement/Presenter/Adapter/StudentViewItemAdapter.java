@@ -6,8 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v7.app.AppCompatActivity;
 
 import com.sit.labresourcemanagement.Model.ApiRoutes;
 import com.sit.labresourcemanagement.Model.PO.ItemModel;
@@ -26,6 +28,7 @@ public class StudentViewItemAdapter extends BaseAdapter {
     String url = ApiRoutes.getUrl();
 
     TextView tvitemname, tvassetno, tvid, tvcategory, tvquantity, tvlocation;
+    ImageView itemImage;
     Button btnRequest;
     Context context;
     List<ItemModel> itemModelList = new ArrayList<>();
@@ -75,14 +78,17 @@ public class StudentViewItemAdapter extends BaseAdapter {
         tvitemname = vi.findViewById(R.id.tvName);
         tvcategory = vi.findViewById(R.id.tvCategory);
         tvlocation = vi.findViewById(R.id.tvitemlocation);
+        itemImage = vi.findViewById(R.id.ivItem);
         btnRequest = vi.findViewById(R.id.btnRequestitem);
 
-
-        tvid.setText(itemModelList.get(position).getId());
+        tvid.setText(itemModelList.get(position).getAssetDescription());
+        tvitemname.setText(itemModelList.get(position).getId());
         tvassetno.setText(itemModelList.get(position).getAssetNo());
-        tvitemname.setText(itemModelList.get(position).getAssetDescription());
         tvcategory.setText(itemModelList.get(position).getCategory());
         tvlocation.setText(itemModelList.get(position).getLocation());
+        String itemname = "i" + itemModelList.get(position).getId();
+        int resID = context.getResources().getIdentifier(itemname,"drawable",context.getPackageName());
+        itemImage.setImageResource(resID);
 
         btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +100,7 @@ public class StudentViewItemAdapter extends BaseAdapter {
                 Category =  itemModelList.get(position).getCategory();
                 inventoryID = itemModelList.get(position).getId();
                 location = itemModelList.get(position).getLocation();
+
                 //change fragment to new loan
 
                 fragment.changeFragment(inventoryAssetDescription,Category,inventoryID,location);

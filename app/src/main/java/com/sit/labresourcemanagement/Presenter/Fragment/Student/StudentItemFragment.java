@@ -1,6 +1,8 @@
 package com.sit.labresourcemanagement.Presenter.Fragment.Student;
 
+import android.app.AlertDialog;
 import android.content.ClipData;
+import android.content.DialogInterface;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -68,9 +70,30 @@ public class StudentItemFragment extends Fragment {
         itemModelList = new ArrayList<>();
 
         getItems();
+        instructiondialog();
+
+
 
         return view;
     }
+    private void instructiondialog()
+    {
+        AlertDialog.Builder instructiondialog = new AlertDialog.Builder(getActivity());
+        instructiondialog.setMessage("This is the catalogue of items that are available for loaning."+"\n" + "Instructions for item catalogue: " + "\n" + "1) Browse through the resource catalogue." + "\n" + "2) Click request to select the resource you wish to loan.")
+                .setPositiveButton("Got it", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        dialog.dismiss();
+                    }
+
+                }).create();
+
+        instructiondialog.show();
+
+    }
+
+
+
     public void changeFragment(String inventoryAssetDescriptio, String Categor, String inventoryI,String location){
 
         //Fragment fragment = new StudentNewLoanFragment();

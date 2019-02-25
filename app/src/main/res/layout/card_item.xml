@@ -42,7 +42,7 @@
 			android:layout_marginEnd="8dp"
 			android:text="TextView"
 			app:layout_constraintBottom_toBottomOf="@+id/textView40"
-			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintEnd_toStartOf="@+id/ivItem"
 			app:layout_constraintStart_toStartOf="@+id/guidelineV25"
 			app:layout_constraintTop_toTopOf="@+id/textView40" />
 
@@ -51,7 +51,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="8dp"
-			android:layout_marginTop="4dp"
+			android:layout_marginTop="8dp"
 			android:text="@string/asset_number"
 			android:textStyle="bold"
 			app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +65,7 @@
 			android:layout_marginEnd="8dp"
 			android:text="TextView"
 			app:layout_constraintBottom_toBottomOf="@+id/textView42"
-			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintEnd_toStartOf="@+id/ivItem"
 			app:layout_constraintStart_toStartOf="@+id/guidelineV25"
 			app:layout_constraintTop_toTopOf="@+id/textView42" />
 
@@ -74,7 +74,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="8dp"
-			android:layout_marginTop="4dp"
+			android:layout_marginTop="8dp"
 			android:text="@string/itemInventoryNo"
 			android:textStyle="bold"
 			app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +88,7 @@
 			android:layout_marginEnd="8dp"
 			android:text="TextView"
 			app:layout_constraintBottom_toBottomOf="@+id/textView44"
-			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintEnd_toStartOf="@+id/ivItem"
 			app:layout_constraintStart_toStartOf="@+id/guidelineV25"
 			app:layout_constraintTop_toTopOf="@+id/textView44" />
 
@@ -97,7 +97,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="8dp"
-			android:layout_marginTop="4dp"
+			android:layout_marginTop="8dp"
 			android:text="@string/itemcategory"
 			android:textStyle="bold"
 			app:layout_constraintStart_toStartOf="parent"
@@ -111,14 +111,14 @@
 			android:layout_marginEnd="8dp"
 			android:text="TextView"
 			app:layout_constraintBottom_toBottomOf="@+id/textView46"
-			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintEnd_toStartOf="@+id/ivItem"
 			app:layout_constraintStart_toStartOf="@+id/guidelineV25"
 			app:layout_constraintTop_toTopOf="@+id/textView46" />
 
 		<Button
 			android:id="@+id/btnRequestitem"
 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			android:layout_height="37dp"
 			android:layout_marginEnd="8dp"
 			android:layout_marginBottom="8dp"
 			android:text="@string/request"
@@ -131,7 +131,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="8dp"
-			android:layout_marginTop="4dp"
+			android:layout_marginTop="8dp"
 			android:text="@string/location"
 			android:textStyle="bold"
 			app:layout_constraintStart_toStartOf="parent"
@@ -145,9 +145,21 @@
 			android:layout_marginEnd="8dp"
 			android:text="TextView"
 			app:layout_constraintBottom_toBottomOf="@+id/textView43"
-			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintEnd_toStartOf="@+id/ivItem"
 			app:layout_constraintStart_toStartOf="@+id/guidelineV25"
 			app:layout_constraintTop_toTopOf="@+id/textView43" />
+
+		<ImageView
+			android:id="@+id/ivItem"
+			android:layout_width="126dp"
+			android:layout_height="0dp"
+			android:layout_marginTop="8dp"
+			android:layout_marginEnd="8dp"
+			android:layout_marginBottom="9dp"
+			app:layout_constraintBottom_toTopOf="@+id/btnRequestitem"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			card_view:srcCompat="@drawable/ic_cross" />
 
 		<!--android:textColor="@color/link"-->
 

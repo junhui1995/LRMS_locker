@@ -420,7 +420,7 @@ public class POCheckInOutAsset extends Fragment {
 
 		Intent i = new Intent(Intent.ACTION_SEND);
 		i.setType("message/rfc822");
-		i.putExtra(Intent.EXTRA_EMAIL, new String[]{"ronaldohiew95@gmail.com"});
+		i.putExtra(Intent.EXTRA_EMAIL, new String[]{"ronaldohiew95@gmail.com","josephchai100@hotmail.com","2355387t@student.gla.ac.uk"});
 		i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
 		i.putExtra(Intent.EXTRA_TEXT, "Receipt of Loan: " + "\n" + "LoanID:" + pendingCheckoutList.get(position).getLoanId()+ "\n" + "Userid: " + pendingCheckoutList.get(position).getUserId() + "\n" + "Resource Name: " + pendingCheckoutList.get(position).getAssetDescription() + "\n" + "Resource Number: " + pendingCheckoutList.get(position).getAssetNumber()+ "\n" + "Date loaned from: " + pendingCheckoutList.get(position).getDateFrom() + " to " + pendingCheckoutList.get(position).getDateTo() + "\n" + "\n" + "Please proceed to the designated locker to retrieve your resource. The locker number and location can be found in the LRMS mobile application.");
 		i.putExtra(Intent.EXTRA_STREAM,  contentUri);
