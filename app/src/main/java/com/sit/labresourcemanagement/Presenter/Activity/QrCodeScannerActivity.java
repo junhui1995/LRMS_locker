@@ -188,11 +188,11 @@ public class QrCodeScannerActivity extends AppCompatActivity implements ZXingSca
                 break;
 
             case "POCheckInOutAsset":
-                builder1.setMessage("Please scan an item");
+                builder1.setMessage("Please scan the item you wish to check in/check out");
                 break;
 
             case "StudentScanEQ":
-                builder1.setMessage("Please scan an item/locker");
+                builder1.setMessage("Please scan the item/locker");
                 break;
 
             case "StudentScanWorkBench":

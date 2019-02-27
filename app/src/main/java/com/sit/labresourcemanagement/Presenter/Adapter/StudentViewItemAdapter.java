@@ -75,14 +75,14 @@ public class StudentViewItemAdapter extends BaseAdapter {
 
         tvid = vi.findViewById(R.id.tvId1);
         tvassetno = vi.findViewById(R.id.tvAssetNo);
-        tvitemname = vi.findViewById(R.id.tvName);
+        //tvitemname = vi.findViewById(R.id.tvName);
         tvcategory = vi.findViewById(R.id.tvCategory);
         tvlocation = vi.findViewById(R.id.tvitemlocation);
         itemImage = vi.findViewById(R.id.ivItem);
         btnRequest = vi.findViewById(R.id.btnRequestitem);
 
         tvid.setText(itemModelList.get(position).getAssetDescription());
-        tvitemname.setText(itemModelList.get(position).getId());
+        //tvitemname.setText(itemModelList.get(position).getId());
         tvassetno.setText(itemModelList.get(position).getAssetNo());
         tvcategory.setText(itemModelList.get(position).getCategory());
         tvlocation.setText(itemModelList.get(position).getLocation());
@@ -93,8 +93,7 @@ public class StudentViewItemAdapter extends BaseAdapter {
         btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Snackbar.make();
-                Toast.makeText(context, "Something went wrong here..", Toast.LENGTH_SHORT).show();
+
 
                 inventoryAssetDescription = itemModelList.get(position).getAssetDescription();
                 Category =  itemModelList.get(position).getCategory();

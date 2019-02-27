@@ -54,7 +54,8 @@ public class StudentItemFragment extends Fragment {
 
     //Variables Declaration
     List<ItemModel> itemModelList;
-    String inventoryAssetDescription1,Category1,inventoryId1;
+
+    private String inventoryTag = "";
 
 
     @Nullable
@@ -94,7 +95,7 @@ public class StudentItemFragment extends Fragment {
 
 
 
-    public void changeFragment(String inventoryAssetDescriptio, String Categor, String inventoryI,String location){
+    public void changeFragment(String inventoryAssetDescriptio, String Categor,String inventoryI,String location){
 
         //Fragment fragment = new StudentNewLoanFragment();
         StudentNewLoanFragment fragment = new StudentNewLoanFragment();
@@ -110,7 +111,9 @@ public class StudentItemFragment extends Fragment {
         bundleObj.putString("assetDescription",inventoryAssetDescriptio);
         bundleObj.putString("InventoryID",inventoryI);
         bundleObj.putString("location",location);
+        bundleObj.putString("tag",inventoryTag);
         fragment.setArguments(bundleObj);
+
             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.content_frame, fragment);
             fragmentTransaction.addToBackStack(null);

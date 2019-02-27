@@ -174,7 +174,7 @@ public class StudentScanQR extends Fragment {
                         //inventoryTag = jsonObject.getString("tag");
 
 
-                        AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+                        final AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
                         builder1.setTitle("Locker Details");
                         builder1.setMessage( "Asset No:" + inventoryAssetNo + "\n"+"Resource Name : " + inventoryAssetDescription + "\n" + "Category:" + itemCategory);
                         builder1.setCancelable(true);
@@ -187,7 +187,17 @@ public class StudentScanQR extends Fragment {
                                         checkitemloanstatus(inventoryID);
 
                                     }
-                                });
+                                })
+                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                                getFragmentManager().popBackStack();
+
+                            }
+                        });
+                        //set nagatve
+
 
                         AlertDialog alert11 = builder1.create();
                         alert11.show();
@@ -231,7 +241,7 @@ public class StudentScanQR extends Fragment {
             @Override
             public void onResponse(String response) {
                 try {
-                    Log.e(">>>>>>>>Response", response);
+
                     JSONObject jsonObject=new JSONObject(response);
                     if(jsonObject.getString("status").equals("Success")){
                         inventorylocation = jsonObject.getString("location");
@@ -279,10 +289,10 @@ public class StudentScanQR extends Fragment {
     public boolean checkQRformat(String QrResult){
 
         String[] splitedStr = QrResult.split("-");
-        if(splitedStr.length == 3 && splitedStr[0].equalsIgnoreCase("LRMS") && (splitedStr[1].equalsIgnoreCase("EQP") || splitedStr[1].equalsIgnoreCase("LKR") || splitedStr[1].equalsIgnoreCase("TOL")  || splitedStr[1].equalsIgnoreCase("ACC")))
+        if(splitedStr.length == 3 && splitedStr[0].equalsIgnoreCase("LRMS") && (splitedStr[1].equalsIgnoreCase("EQP") || splitedStr[1].equalsIgnoreCase("LKR") || splitedStr[1].equalsIgnoreCase("TOL")  || splitedStr[1].equalsIgnoreCase("ACC") || splitedStr[1].equalsIgnoreCase("CON")))
         {
             //Check whether its a eqp or a locker
-            if(splitedStr[1].equalsIgnoreCase("EQP") || splitedStr[1].equalsIgnoreCase("TOL")  || splitedStr[1].equalsIgnoreCase("ACC")){
+            if(splitedStr[1].equalsIgnoreCase("EQP") || splitedStr[1].equalsIgnoreCase("TOL")  || splitedStr[1].equalsIgnoreCase("ACC") || splitedStr[1].equalsIgnoreCase("CON")){
                 inventoryID = splitedStr[2];
 
                 //Now its an inventory item , find its category
@@ -556,6 +566,9 @@ public class StudentScanQR extends Fragment {
                 break;
             case "TOL":
                 Category = "tools";
+                break;
+            case "CON":
+                Category = "consumable";
                 break;
         }
 

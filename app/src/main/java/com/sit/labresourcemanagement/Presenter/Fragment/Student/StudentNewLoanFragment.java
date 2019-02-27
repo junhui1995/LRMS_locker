@@ -76,7 +76,8 @@ public class StudentNewLoanFragment extends Fragment {
     private String timeReturning;
     private String reasonToLoan;
     private String currDateTime;
-    private String currentDateTime;
+    private String currentDate,currentTime;
+
     private String location;
     private String inventoryAssetDescription;
     private String lockerRequest = "Yes";
@@ -181,10 +182,22 @@ public class StudentNewLoanFragment extends Fragment {
         int mHour = c.get(Calendar.HOUR_OF_DAY);
         int mMinute = c.get(Calendar.MINUTE);
 
-        dateRequest.setText(mYear + "-" + (mMonth + 1) + "-" + mDay);
-        timeLoan.setText(mHour + ":" + mMinute+":"+ "00");
-        dateDue.setText(mYear + "-" + (mMonth + 1) + "-" + (mDay+3));
-        timeReturnLoan.setText(mHour + ":" + mMinute+ ":" +"00");
+
+        if (mMinute <10)
+        {
+            dateRequest.setText(mYear + "-" + (mMonth + 1) + "-" + mDay);
+            timeLoan.setText(mHour + ":" + "0"+mMinute+":"+ "00");
+            dateDue.setText(mYear + "-" + (mMonth + 1) + "-" + (mDay + 3));
+            timeReturnLoan.setText(mHour + ":" + "0"+mMinute+ ":" +"00");
+
+
+        }
+        else {
+            dateRequest.setText(mYear + "-" + (mMonth + 1) + "-" + mDay);
+            timeLoan.setText(mHour + ":" + mMinute + ":" + "00");
+            dateDue.setText(mYear + "-" + (mMonth + 1) + "-" + (mDay + 3));
+            timeReturnLoan.setText(mHour + ":" + mMinute + ":" + "00");
+        }
 
         //Check if selected category is empty. If its not empty means previous fragment was StudentScanToLoanAsset,just display new loan widgets normally
         if(TextUtils.isEmpty(selectedItemID)){
@@ -325,8 +338,8 @@ public class StudentNewLoanFragment extends Fragment {
             tvItem.setVisibility(View.VISIBLE);
 
             //Show button to lead user to learning gallery tagged to the equipment if available.
-			/*if (!tag.equals("null")){
-				btn_Learning_Gallery.setVisibility(View.VISIBLE);
+			if (!tag.equals("null")){
+                btn_Learning_Gallery.setVisibility(View.VISIBLE);
 
 				btn_Learning_Gallery.setOnClickListener(new View.OnClickListener() {
 					@Override
@@ -334,7 +347,11 @@ public class StudentNewLoanFragment extends Fragment {
 						transitToLearningGallery(tag);
 					}
 				});
-			}*/
+			}
+			else
+            {
+                btn_Learning_Gallery.setVisibility(View.GONE);
+            }
 
             tvCategory.setText("Category selected : " + category);
             tvItem.setText("Item selected : " + inventoryAssetDescription);
