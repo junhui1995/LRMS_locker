@@ -3,6 +3,14 @@ package com.sit.labresourcemanagement.Presenter.Adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.hardware.Camera;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +31,8 @@ import com.sit.labresourcemanagement.Model.ApiRoutes;
 import com.sit.labresourcemanagement.Model.LockerDetails;
 import com.sit.labresourcemanagement.Model.SharedPrefManager;
 import com.sit.labresourcemanagement.Model.Student.StudentReturnModel;
+import com.sit.labresourcemanagement.Presenter.Fragment.Student.StudentReturnLoanFragment;
+import com.sit.labresourcemanagement.Presenter.Fragment.Student.StudentScanItemToReturn;
 import com.sit.labresourcemanagement.R;
 
 
@@ -30,15 +40,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+import static android.support.v4.content.FileProvider.getUriForFile;
+
+
+
 public class StudentReturnAdapter extends BaseAdapter {
 
     Context context;
     private LayoutInflater inflater = null;
+    StudentReturnLoanFragment fragment;
 
     //Declare widgets for view later
 /*    TextView tvInventoryId;
@@ -61,8 +80,9 @@ public class StudentReturnAdapter extends BaseAdapter {
     //HashMap<String,LockerDetails> hmLockerIdToDetails = new HashMap<String,LockerDetails>();
 
 
-    public StudentReturnAdapter(Context context, List<StudentReturnModel> returnModelList) {
+    public StudentReturnAdapter(Context context, List<StudentReturnModel> returnModelList, StudentReturnLoanFragment fragment) {
         this.returnModelList = returnModelList;
+        this.fragment = fragment;
         this.context = context;
         //this.hmLockerIdToDetails = hmLockerIdToDetails;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -129,6 +149,9 @@ public class StudentReturnAdapter extends BaseAdapter {
 
                 checklocker(position);
 
+                //todo activate camera to take photo and send using email
+                Intent intent = new Intent();
+
 
 
 
@@ -162,6 +185,7 @@ public class StudentReturnAdapter extends BaseAdapter {
             @Override
             public void onResponse(String response) {
                 try {
+
                     JSONObject jsonObject = new JSONObject(response);
                     //JSONArray jsonArray = jsonObject.getJSONArray("lockerList");
                     Log.d("setlocker",jsonObject.toString());
@@ -173,8 +197,9 @@ public class StudentReturnAdapter extends BaseAdapter {
 
                     else if (jsonObject.getString("status").equals("Success")){
 
+
                         String lockerid = jsonObject.getString("lockerid");
-                        lockerDialog(lockerid);
+                        lockerDialog(lockerid,position);
                         Toast.makeText(context, "Locker has been assigned", Toast.LENGTH_SHORT).show();
                         btnGetLocker.setVisibility(View.GONE);
                         //update adapter
@@ -185,7 +210,7 @@ public class StudentReturnAdapter extends BaseAdapter {
 
                         Toast.makeText(context, "Locker has been assigned BEFORE", Toast.LENGTH_SHORT).show();
                         String lockerid = jsonObject.getString("lockerid");
-                        lockerDialog(lockerid);
+                        lockerDialog(lockerid, position);
                     }
 
                     else
@@ -221,7 +246,7 @@ public class StudentReturnAdapter extends BaseAdapter {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(send_req);
     }
-    private void lockerDialog(String lockerId){
+    private void lockerDialog(String lockerId, final int position){
         View dialogView = LayoutInflater.from(context).inflate(R.layout.custom_checkout_locker_details, null);
         tvCampus = dialogView.findViewById(R.id.textViewCampus);
         tvLocker = dialogView.findViewById(R.id.textViewLocker);
@@ -233,10 +258,27 @@ public class StudentReturnAdapter extends BaseAdapter {
                 .setView(dialogView)
                 .setIcon(R.drawable.ic_locker)
                 .setTitle("Locker Details")
+                .setPositiveButton("Send Proof", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //activate camera and send email
+                        fragment.openCameraIntent(returnModelList.get(position).getLoanId());
+
+
+
+                    }
+                })
                 .create();
 
         dialog.show();
     }
+
+
+
+
+
+
+
 
     private void getLockerDetails(final String lockerId){
         StringRequest location_req = new StringRequest(Request.Method.POST, url + "getLockerDetail.php", new Response.Listener<String>() {
@@ -278,4 +320,5 @@ public class StudentReturnAdapter extends BaseAdapter {
         RequestQueue locker_queue = Volley.newRequestQueue(context);
         locker_queue.add(location_req);
     }
+
 }

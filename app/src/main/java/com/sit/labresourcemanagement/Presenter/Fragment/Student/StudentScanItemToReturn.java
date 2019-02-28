@@ -6,8 +6,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,10 +35,12 @@ import com.sit.labresourcemanagement.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
+import static android.support.v4.content.FileProvider.getUriForFile;
 
 public class StudentScanItemToReturn extends Fragment {
 
@@ -112,7 +118,10 @@ public class StudentScanItemToReturn extends Fragment {
                 //Check whether equipment is in a valid format
                 valideqpQRformat = checkQRformat(QRresult);
                 if(valideqpQRformat){
+                    //activate camera to show proof
+
                     putIntoLoanReturn();
+
                 }
                 else{
                     displayInvalidFormatErrorBox();
@@ -180,7 +189,7 @@ public class StudentScanItemToReturn extends Fragment {
     //method to check if item is the correct item being loaned by the correct user
     public void putIntoLoanReturn()
     {
-        //todo write api to put item into loanitemreturn
+        //write api to put item into loanitemreturn
         StringRequest send_req = new StringRequest(Request.Method.POST,url + "returnloan.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -233,6 +242,8 @@ public class StudentScanItemToReturn extends Fragment {
 
 
     }
+
+
 
     public void backtoLoanFragment(){
 

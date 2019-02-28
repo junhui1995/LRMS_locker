@@ -41,10 +41,10 @@ public class StudentHomeFragment extends Fragment implements View.OnClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_student_home, container, false);
 
-        ibAttendance = (ImageButton) rootview.findViewById(R.id.imageButtonAttendance);
-        ibBooking = (ImageButton) rootview.findViewById(R.id.imageButtonBooking);
-        ibLearningGallery = (ImageButton) rootview.findViewById(R.id.imageButtonLearningGallery);
-        ibLoan = (ImageButton) rootview.findViewById(R.id.imageButtonLoan);
+        ibAttendance =  rootview.findViewById(R.id.imageButtonAttendance);
+        ibBooking =  rootview.findViewById(R.id.imageButtonBooking);
+        ibLearningGallery = rootview.findViewById(R.id.imageButtonLearningGallery);
+        ibLoan =  rootview.findViewById(R.id.imageButtonLoan);
 
         ibAttendance.setOnClickListener(this);
         ibBooking.setOnClickListener(this);
