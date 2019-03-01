@@ -101,61 +101,38 @@
 			app:layout_constraintTop_toBottomOf="@+id/tvreturnassetno" />
 
 		<TextView
-			android:id="@+id/textView33"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="8dp"
-			android:layout_marginTop="4dp"
-			android:text="@string/approv_po_id"
-			android:textStyle="bold"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/tvreturnloanid" />
-
-		<TextView
 			android:id="@+id/textView34"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="8dp"
-			android:layout_marginTop="8dp"
+			android:layout_marginTop="4dp"
 			android:text="@string/status"
 			android:textStyle="bold"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/textView33" />
+			app:layout_constraintTop_toBottomOf="@+id/textView31" />
 
 		<TextView
 			android:id="@+id/tvreturnstatus"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="8dp"
-			android:layout_marginTop="8dp"
+			android:layout_marginTop="4dp"
 			android:layout_marginEnd="8dp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.0"
 			app:layout_constraintStart_toStartOf="@+id/guidelineV25"
-			app:layout_constraintTop_toBottomOf="@+id/tvReturnPoId"
+			app:layout_constraintTop_toBottomOf="@+id/tvreturnloanid"
 			tools:text="Status" />
 
 		<Button
 			android:id="@+id/btnGetLocker"
 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			android:layout_height="37dp"
 			android:layout_marginStart="8dp"
 			android:layout_marginTop="8dp"
 			android:text="Get Locker"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/textView34" />
-
-		<TextView
-			android:id="@+id/tvReturnPoId"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginStart="8dp"
-			android:layout_marginTop="8dp"
-			android:layout_marginEnd="5dp"
-			android:text="@string/approv_po_id"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toEndOf="@+id/textView33"
-			app:layout_constraintTop_toBottomOf="@+id/tvreturnloanid" />
 
 	</android.support.constraint.ConstraintLayout>
 

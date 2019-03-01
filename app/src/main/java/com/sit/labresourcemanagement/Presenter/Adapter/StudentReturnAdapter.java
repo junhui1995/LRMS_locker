@@ -71,7 +71,7 @@ public class StudentReturnAdapter extends BaseAdapter {
     TextView tvassetDescription;
     TextView tvDelete;*/
     TextView tvCampus, tvLocker, tvPin;
-    TextView tvuserid, tvinventoryid, tvstatus, tvpoId, tvloanid, lockerid;
+    TextView tvuserid, tvinventoryid, tvstatus, tvloanid, lockerid;
     Button btnGetLocker;
 
 
@@ -120,14 +120,14 @@ public class StudentReturnAdapter extends BaseAdapter {
 
         tvuserid = vi.findViewById(R.id.tvreturnuserid);
         tvinventoryid = vi.findViewById(R.id.tvreturnassetno);
-        tvpoId = vi.findViewById(R.id.tvReturnPoId);
+
         tvloanid = vi.findViewById(R.id.tvreturnloanid);
         tvstatus = vi.findViewById(R.id.tvreturnstatus);
 
         tvloanid.setText(returnModelList.get(position).getLoanId());
         tvuserid.setText(returnModelList.get(position).getUserId());
         tvinventoryid.setText(returnModelList.get(position).getInventoryId());
-        tvpoId.setText(returnModelList.get(position).getPoId());
+
         tvstatus.setText(returnModelList.get(position).getStatus());
 
 
@@ -149,9 +149,6 @@ public class StudentReturnAdapter extends BaseAdapter {
                 //set the locker
 
                 checklocker(position);
-
-                //todo activate camera to take photo and send using email
-                Intent intent = new Intent();
 
 
 

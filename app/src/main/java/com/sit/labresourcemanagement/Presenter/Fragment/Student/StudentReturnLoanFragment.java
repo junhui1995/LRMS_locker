@@ -201,8 +201,8 @@ public class StudentReturnLoanFragment extends Fragment {
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType("message/rfc822");
         i.putExtra(Intent.EXTRA_EMAIL, new String[]{"weeyeong.loo@singaporetech.edu.sg"});
-        i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
-        i.putExtra(Intent.EXTRA_TEXT, "");
+        i.putExtra(Intent.EXTRA_SUBJECT, "Proof of return ");
+        i.putExtra(Intent.EXTRA_TEXT, "Loan" + imageFilePath);
         i.putExtra(Intent.EXTRA_STREAM,  contentUri);
 
         try {

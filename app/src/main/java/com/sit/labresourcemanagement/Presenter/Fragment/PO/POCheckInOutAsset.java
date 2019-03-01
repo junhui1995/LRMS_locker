@@ -403,7 +403,6 @@ public class POCheckInOutAsset extends Fragment {
 			result = save ? "Image Saved" : "Image Not Saved";
 
 			sendEmail(inputValue + ".jpg");
-			Log.i(">>>>>>savepath", savePath );
 			//Toast.makeText(rootview, result+save+savePath, Toast.LENGTH_LONG).show();
 		} catch (WriterException e) {
 			Log.v(TAG, e.toString());
@@ -420,7 +419,7 @@ public class POCheckInOutAsset extends Fragment {
 		Intent i = new Intent(Intent.ACTION_SEND);
 		i.setType("message/rfc822");
 		i.putExtra(Intent.EXTRA_EMAIL, new String[]{"ronaldohiew95@gmail.com"});
-		i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
+		i.putExtra(Intent.EXTRA_SUBJECT, "Loan Approval");
 		i.putExtra(Intent.EXTRA_TEXT, "Receipt of Loan: " + "\n" + "LoanID:" + pendingCheckoutList.get(position).getLoanId()+ "\n" + "Userid: " + pendingCheckoutList.get(position).getUserId() + "\n" + "Resource Name: " + pendingCheckoutList.get(position).getAssetDescription() + "\n" + "Resource Number: " + pendingCheckoutList.get(position).getAssetNumber()+ "\n" + "Date loaned from: " + pendingCheckoutList.get(position).getDateFrom() + " to " + pendingCheckoutList.get(position).getDateTo() + "\n" + "\n" + "Please proceed to the designated locker to retrieve your resource. The locker number and location can be found in the LRMS mobile application.");
 		i.putExtra(Intent.EXTRA_STREAM,  contentUri);
 
@@ -477,7 +476,7 @@ public class POCheckInOutAsset extends Fragment {
 		StringRequest checkinReq = new StringRequest(Request.Method.POST, url + "POCheckInAsset.php", new Response.Listener<String>() {
 			@Override
 			public void onResponse(String response) {
-                Log.i(">>>>wrong", response);
+
 			    try {
 					JSONObject jsonObject = new JSONObject(response);
 
@@ -509,6 +508,7 @@ public class POCheckInOutAsset extends Fragment {
 			@Override
 			protected Map<String, String> getParams() throws AuthFailureError {
 				Map<String, String>  params = new HashMap<String, String>();
+				params.put("poId", SharedPrefManager.getInstance(getContext()).getUser().getId());
 				params.put("loanId", loanID);
 				params.put("inventoryId", pendingCheckInList.get(position).getInventoryId());
 				//params.put("returnId", pendingCheckInList.get(position).getReturnId());
