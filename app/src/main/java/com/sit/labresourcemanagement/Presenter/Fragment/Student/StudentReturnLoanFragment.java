@@ -1,7 +1,10 @@
 package com.sit.labresourcemanagement.Presenter.Fragment.Student;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -9,8 +12,10 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,6 +47,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,6 +58,7 @@ import java.util.Map;
 import static android.app.Activity.RESULT_OK;
 import static android.os.Environment.DIRECTORY_PICTURES;
 import static android.support.v4.content.FileProvider.getUriForFile;
+
 
 //Done by Hiew Jun Hui
 public class StudentReturnLoanFragment extends Fragment {
@@ -153,17 +160,18 @@ public class StudentReturnLoanFragment extends Fragment {
         currentRetReqQ.add(currentReturnReq);
     }
 
-    private static final int REQUEST_CAPTURE_IMAGE = 100;
+    static final int REQUEST_CAPTURE_IMAGE = 100;
     String imageFilePath;
     File image;
 
-    public void openCameraIntent(String loanid) {
 
+
+    public void openCameraIntent(String loanid) {
         imageFilePath = "loadID"+loanid;
         Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         image = new File(Environment.getExternalStorageDirectory(), "QRCodes");
 
-        File actualimage = new File(image.getAbsolutePath() + imageFilePath);
+        File actualimage = new File(image.getAbsolutePath() + imageFilePath+".jpg");
         Uri fileProvider = FileProvider.getUriForFile(getActivity(), "com.sit.labresourcemanagement.provider", actualimage);
         pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
         if (pictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
@@ -173,23 +181,17 @@ public class StudentReturnLoanFragment extends Fragment {
 
 
         }
-        Log.i(">>>>>image", actualimage.getAbsolutePath());
-
     }
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode,
                                  Intent data) {
-
         if (requestCode == REQUEST_CAPTURE_IMAGE) {
 
-            sendEmail(imageFilePath + ".jpg");
+            sendEmail(imageFilePath+".jpg");
         }
-
-
     }
-
 
     public void sendEmail(String filename)
     {

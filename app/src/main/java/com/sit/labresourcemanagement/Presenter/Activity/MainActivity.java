@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity
     private static final String CURRENT_NAVID = "currentNavID";
     private static final String TAG_NAVID = "navid";
 
+
     private static String USER_ROLE = null;
     private static Fragment fragment = null;
     private static int currentNavID = 666;
@@ -62,6 +63,8 @@ public class MainActivity extends AppCompatActivity
 
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 2;
+    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 3;
+
     /*All main fragments*/
     //Student
     Fragment studentHomeFragment = null;
@@ -128,6 +131,11 @@ public class MainActivity extends AppCompatActivity
             learningGalleryFragment = new StudentLearningGalleryFragment();
             loanAssetFragment = new StudentLoanFragment();
             studentItemFragment = new StudentItemFragment();
+            if (ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+            {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.CAMERA},MY_PERMISSIONS_REQUEST_CAMERA);
+            }
         } else if (USER_ROLE.equals("PO")){
             poHomeFragment = new POHomeFragment();
             checkoutAssetFragment = new POCheckInOutAsset();
@@ -140,10 +148,7 @@ public class MainActivity extends AppCompatActivity
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
             }
-            else
-            {
 
-            }
 
         }
 
@@ -177,6 +182,12 @@ public class MainActivity extends AppCompatActivity
                     }
                 }
                 return;
+            }
+            case MY_PERMISSIONS_REQUEST_CAMERA:{
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.CAMERA},MY_PERMISSIONS_REQUEST_CAMERA);
+
+
             }
 
         }

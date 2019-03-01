@@ -41,6 +41,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -262,8 +263,9 @@ public class StudentReturnAdapter extends BaseAdapter {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //activate camera and send email
-                        fragment.openCameraIntent(returnModelList.get(position).getLoanId());
 
+
+                            fragment.openCameraIntent(returnModelList.get(position).getLoanId());
 
 
                     }
