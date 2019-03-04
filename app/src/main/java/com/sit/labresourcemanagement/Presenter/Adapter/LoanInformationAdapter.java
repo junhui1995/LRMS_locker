@@ -3,6 +3,7 @@ package com.sit.labresourcemanagement.Presenter.Adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -198,7 +199,7 @@ public class LoanInformationAdapter extends BaseAdapter{
         }
 
 
-        if(listofLoanInformation.get(position).getStatus().equalsIgnoreCase("Returned")){
+        if(listofLoanInformation.get(position).getStatus().equalsIgnoreCase("Returned") || listofLoanInformation.get(position).getStatus().equalsIgnoreCase("Pending Return")){
             btnLockerDetails.setVisibility(View.GONE);
 
         }
@@ -215,6 +216,7 @@ public class LoanInformationAdapter extends BaseAdapter{
         StringRequest send_req = new StringRequest(Request.Method.POST,url + "returnloan.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.i(">>>>>error",response);
                 try {
                     JSONObject jsonObject=new JSONObject(response);
 
@@ -230,6 +232,12 @@ public class LoanInformationAdapter extends BaseAdapter{
 
                         Toast.makeText(context, "You may proceed to locker", Toast.LENGTH_SHORT).show();
 
+                        //update adapter
+                        notifyDataSetChanged();
+                    }
+                    else if (jsonObject.getString("status").equals("Failure1"))
+                    {
+                        Toast.makeText(context, "please redo here", Toast.LENGTH_SHORT).show();
                         //update adapter
                         notifyDataSetChanged();
                     }

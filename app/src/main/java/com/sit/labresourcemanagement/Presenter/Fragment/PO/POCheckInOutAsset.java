@@ -476,7 +476,7 @@ public class POCheckInOutAsset extends Fragment {
 		StringRequest checkinReq = new StringRequest(Request.Method.POST, url + "POCheckInAsset.php", new Response.Listener<String>() {
 			@Override
 			public void onResponse(String response) {
-
+Log.i(">>>><<<<<response",response);
 			    try {
 					JSONObject jsonObject = new JSONObject(response);
 
@@ -487,7 +487,7 @@ public class POCheckInOutAsset extends Fragment {
 
 						Snackbar.make(rootview, "Item checked in successfully!", Snackbar.LENGTH_SHORT).show();
 						//freelocker();
-					} else if (jsonObject.getString("status").equals("Fail")) {
+					} else if (jsonObject.getString("status").equals("Fail1")) {
 						Snackbar.make(rootview, "Error while checking in!", Snackbar.LENGTH_SHORT).show();
 					}
 					else

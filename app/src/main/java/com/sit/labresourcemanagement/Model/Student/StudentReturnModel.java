@@ -67,15 +67,16 @@ public class StudentReturnModel {
     String loanId;
     String returnId;
 
+
     public String getPoId() {
-        return PoId;
+        return poId;
     }
 
     public void setPoId(String poId) {
-        PoId = poId;
+        this.poId = poId;
     }
 
-    String PoId;
+    String poId;
 
     public String getStatus() {
         return status;
@@ -87,11 +88,11 @@ public class StudentReturnModel {
 
     String status;
 
-    public StudentReturnModel(String loanId,String userId, String inventoryId,String Poid, String status) {
+    public StudentReturnModel(String loanId,String userId, String inventoryId,String poId, String status) {
         this.loanId = loanId;
         this.userId = userId;
         this.inventoryId = inventoryId;
-        this.PoId = Poid;
+        this.poId = poId;
         this.status = status;
         //this.lookerId = lookerId;
 

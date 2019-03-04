@@ -61,6 +61,7 @@ import static android.support.v4.content.FileProvider.getUriForFile;
 
 
 //Done by Hiew Jun Hui
+//USE THIS
 public class StudentReturnLoanFragment extends Fragment {
 
     //Declaring view and wigdets
@@ -113,6 +114,7 @@ public class StudentReturnLoanFragment extends Fragment {
         StringRequest currentReturnReq = new StringRequest(Request.Method.POST, url + "getStudentReturnLoan.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.i("<><><><>", response);
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     Log.d("ret", jsonObject.toString());
@@ -126,16 +128,19 @@ public class StudentReturnLoanFragment extends Fragment {
                             JSONObject jsonObject1 = jsonArray.getJSONObject(i);
 
 
-                            StudentReturnModel studentReturnModel = new StudentReturnModel(jsonObject1.getString("loanId"), jsonObject1.getString("userId"), jsonObject1.getString("inventoryId"), jsonObject1.getString("poId"), jsonObject1.getString("status"));
+                            StudentReturnModel studentReturnModel = new StudentReturnModel(jsonObject1.getString("loanId"), jsonObject1.getString("userId"), jsonObject1.getString("inventoryId"), jsonObject1.getString("poId"),jsonObject1.getString("status"));
                             listStudItemReturn.add(studentReturnModel);
-
 
                         }
 
                         itemReturn.setAdapter(new StudentReturnAdapter(getContext(), listStudItemReturn, StudentReturnLoanFragment.this));
-                    } else if (jsonObject.getString("status").equals("Fail")) {
-                        Toast.makeText(getActivity(), "Return request Fail", Toast.LENGTH_SHORT).show();
+
+                    } else if (jsonObject.getString("status").equals("fight")) {
+                        Snackbar.make(view, "Sorry No Record found.", Snackbar.LENGTH_SHORT).show();
+                    } else  {
+                        Snackbar.make(view, "Error.", Snackbar.LENGTH_SHORT).show();
                     }
+
                     //Set the adapter for display
 
 

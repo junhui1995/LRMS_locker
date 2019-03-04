@@ -5,9 +5,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,10 +37,12 @@ import com.sit.labresourcemanagement.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
+import static android.support.v4.content.FileProvider.getUriForFile;
 
 public class StudentScanQR extends Fragment {
 
@@ -63,6 +70,11 @@ public class StudentScanQR extends Fragment {
     private boolean valideqpQRformat = false;
     private boolean isInvLoanable = false;
 
+
+    //for image camera
+    static final int REQUEST_CAPTURE_IMAGE = 100;
+    String imageFilePath;
+    File image;
 
     //Declaration for widget pop up box and progress dialog
     AlertDialog.Builder builder;
@@ -150,6 +162,13 @@ public class StudentScanQR extends Fragment {
                 //This chunk of codes below appear when user pressed back button
                 allowUsertoReScan();
             }
+        }
+        else if (requestCode == REQUEST_CAPTURE_IMAGE) {
+
+            sendEmail(imageFilePath+".jpg");
+
+            //go back home page
+            getFragmentManager().popBackStack();
         }
     }
 
@@ -409,19 +428,18 @@ public class StudentScanQR extends Fragment {
 
         AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
         builder1.setTitle("Locker Details");
-        builder1.setMessage("Locker Name : " + lockerName + "\n" + "Locker location : " + lockerLocation + "\n" + "Locker Pin : "  + lockerPin + "\n\n");
+        builder1.setMessage("Locker Name : " + lockerName + "\n" + "Locker location : " + lockerLocation + "\n" + "Locker Pin : "  + lockerPin + "\n\n"+ " Please take a picture of the resource and the rececipt as proof of collection");
         builder1.setCancelable(false);
 
         builder1.setPositiveButton(
-                "Ok",
+                "Take picture",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
+                        openCameraIntent(loanId);
 
-                        //go back home page
-                        getFragmentManager().popBackStack();
 
-                        scanQR();
+
                     }
                 });
 
@@ -538,14 +556,17 @@ public class StudentScanQR extends Fragment {
 
 
     public void displaySuccessfullyCheckoutMessage(){
+
+
         AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
-        builder1.setMessage("Successfully check out item. Please take good care of the item");
+        builder1.setMessage("Successfully check out item. Please take a photo of the resource and receipt as proof");
         builder1.setCancelable(false);
 
         builder1.setPositiveButton(
-                "Ok",
+                "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+
                         dialog.dismiss();
 
                     }
@@ -612,6 +633,45 @@ public class StudentScanQR extends Fragment {
         requestQueue.add(itemReq);
 
     }
+
+
+    public void openCameraIntent(String loanid) {
+        imageFilePath = "collectloanID"+loanid;
+        Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        image = new File(Environment.getExternalStorageDirectory(), "QRCodes");
+
+        File actualimage = new File(image.getAbsolutePath() + imageFilePath+".jpg");
+        Uri fileProvider = FileProvider.getUriForFile(getActivity(), "com.sit.labresourcemanagement.provider", actualimage);
+        pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
+        //if (pictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+
+            startActivityForResult(pictureIntent,
+                    REQUEST_CAPTURE_IMAGE);
+
+
+        //}
+    }
+
+    public void sendEmail(String filename)
+    {
+        File imagePath = new File(Environment.getExternalStorageDirectory(), "QRCodes");
+        File newFile = new File(imagePath, filename);
+        Uri contentUri = getUriForFile(getContext(), "com.sit.labresourcemanagement.provider", newFile);
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("message/rfc822");
+        i.putExtra(Intent.EXTRA_EMAIL, new String[]{"weeyeong.loo@singaporetech.edu.sg"});
+        i.putExtra(Intent.EXTRA_SUBJECT, "Proof of collection ");
+        i.putExtra(Intent.EXTRA_TEXT, "Loan" + imageFilePath);
+        i.putExtra(Intent.EXTRA_STREAM,  contentUri);
+
+        try {
+            startActivity(Intent.createChooser(i, "Send mail..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            //Snackbar.make(View.inflate(), "There are no email clients installed.", Snackbar.LENGTH_SHORT).show();
+            //Toast.makeText(POCheckInOutAsset.this, "", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 	@Override
 	public void onDestroy() {
