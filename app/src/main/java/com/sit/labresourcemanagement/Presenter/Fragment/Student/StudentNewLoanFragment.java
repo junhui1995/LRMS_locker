@@ -181,18 +181,15 @@ public class StudentNewLoanFragment extends Fragment {
         int mDay = c.get(Calendar.DAY_OF_MONTH);
         int mHour = c.get(Calendar.HOUR_OF_DAY);
         int mMinute = c.get(Calendar.MINUTE);
-
-
         if (mMinute <10)
         {
             dateRequest.setText(mYear + "-" + (mMonth + 1) + "-" + mDay);
             timeLoan.setText(mHour + ":" + "0"+mMinute+":"+ "00");
             dateDue.setText(mYear + "-" + (mMonth + 1) + "-" + (mDay + 3));
             timeReturnLoan.setText(mHour + ":" + "0"+mMinute+ ":" +"00");
-
-
         }
-        else {
+        else
+            {
             dateRequest.setText(mYear + "-" + (mMonth + 1) + "-" + mDay);
             timeLoan.setText(mHour + ":" + mMinute + ":" + "00");
             dateDue.setText(mYear + "-" + (mMonth + 1) + "-" + (mDay + 3));
@@ -574,7 +571,7 @@ public class StudentNewLoanFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "An error has occurred", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getContext(), "An error has occurred", Toast.LENGTH_SHORT).show();
 
             }
         });

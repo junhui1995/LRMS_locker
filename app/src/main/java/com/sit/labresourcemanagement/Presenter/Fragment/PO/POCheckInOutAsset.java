@@ -407,8 +407,6 @@ public class POCheckInOutAsset extends Fragment {
 		} catch (WriterException e) {
 			Log.v(TAG, e.toString());
 		}
-
-
 	}
 	private void sendEmail(String filename)
 	{
@@ -419,15 +417,20 @@ public class POCheckInOutAsset extends Fragment {
 		Intent i = new Intent(Intent.ACTION_SEND);
 		i.setType("message/rfc822");
 		i.putExtra(Intent.EXTRA_EMAIL, new String[]{"ronaldohiew95@gmail.com"});
-		i.putExtra(Intent.EXTRA_SUBJECT, "Loan Approval");
-		i.putExtra(Intent.EXTRA_TEXT, "Receipt of Loan: " + "\n" + "LoanID:" + pendingCheckoutList.get(position).getLoanId()+ "\n" + "Userid: " + pendingCheckoutList.get(position).getUserId() + "\n" + "Resource Name: " + pendingCheckoutList.get(position).getAssetDescription() + "\n" + "Resource Number: " + pendingCheckoutList.get(position).getAssetNumber()+ "\n" + "Date loaned from: " + pendingCheckoutList.get(position).getDateFrom() + " to " + pendingCheckoutList.get(position).getDateTo() + "\n" + "\n" + "Please proceed to the designated locker to retrieve your resource. The locker number and location can be found in the LRMS mobile application.");
+		i.putExtra(Intent.EXTRA_SUBJECT, "Loan Approval " + pendingCheckoutList.get(position).getLoanId());
+		i.putExtra(Intent.EXTRA_TEXT, "Receipt of Loan: " + "\n" +
+				"LoanID:" + pendingCheckoutList.get(position).getLoanId()+ "\n" +
+				"Userid: " + pendingCheckoutList.get(position).getUserId() + "\n" +
+				"Resource Name: " + pendingCheckoutList.get(position).getAssetDescription() + "\n" + "" +
+				"Resource Number: " + pendingCheckoutList.get(position).getAssetNumber()+ "\n" +
+				"Date loaned from: " + pendingCheckoutList.get(position).getDateFrom() +
+				"Date loaned to: " + pendingCheckoutList.get(position).getDateTo() + "\n" + "\n" +
+				"Please proceed to the designated locker to retrieve your resource. The locker number and location can be found in the LRMS mobile application.");
 		i.putExtra(Intent.EXTRA_STREAM,  contentUri);
-
 		try {
 			startActivity(Intent.createChooser(i, "Send mail..."));
 		} catch (android.content.ActivityNotFoundException ex) {
 			Snackbar.make(rootview, "There are no email clients installed.", Snackbar.LENGTH_SHORT).show();
-			//Toast.makeText(POCheckInOutAsset.this, "", Toast.LENGTH_SHORT).show();
 		}
 	}
 	private void checkInAsset(final String loanId){
@@ -477,11 +480,13 @@ public class POCheckInOutAsset extends Fragment {
 			@Override
 			public void onResponse(String response) {
 Log.i(">>>><<<<<response",response);
+
 			    try {
 					JSONObject jsonObject = new JSONObject(response);
 
 
 					if (jsonObject.getString("status").equals("Success")) {
+						//freelocker(loanID);
 						pendingCheckInList.remove(position);
 						adapter.notifyDataSetChanged();
 
@@ -496,7 +501,7 @@ Log.i(">>>><<<<<response",response);
 					}
 
 				} catch (JSONException e) {
-					//e.printStackTrace();
+					e.printStackTrace();
 				}
 			}
 		}, new Response.ErrorListener() {
@@ -509,17 +514,22 @@ Log.i(">>>><<<<<response",response);
 			protected Map<String, String> getParams() throws AuthFailureError {
 				Map<String, String>  params = new HashMap<String, String>();
 				params.put("poId", SharedPrefManager.getInstance(getContext()).getUser().getId());
-				params.put("loanId", loanID);
+				params.put("loanId", pendingCheckInList.get(position).getLoanId());
 				params.put("inventoryId", pendingCheckInList.get(position).getInventoryId());
 				//params.put("returnId", pendingCheckInList.get(position).getReturnId());
 				params.put("remarks", remarks);
+				Log.i("<<<<>>>>response", SharedPrefManager.getInstance(getContext()).getUser().getId());
+				Log.i("<<<<>>>>response",pendingCheckInList.get(position).getInventoryId());
+				Log.i("<<<<>>>>response",loanID);
+				Log.i("<<<<>>>>response",remarks);
+
 				return params;
 			}
 		};
 		RequestQueue checkoutQueue = Volley.newRequestQueue(getContext());
 		checkoutQueue.add(checkinReq);
 	}
-	private void freelocker() {
+	private void freelocker(final String loanId) {
 		StringRequest checkoutReq = new StringRequest(Request.Method.POST, url + "freelocker.php", new Response.Listener<String>() {
 			@Override
 			public void onResponse(String response) {
@@ -546,7 +556,7 @@ Log.i(">>>><<<<<response",response);
 			protected Map<String, String> getParams() throws AuthFailureError {
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("poId",SharedPrefManager.getInstance(getContext()).getUser().getId());
-				params.put("loanId", pendingCheckInList.get(position).getLoanId());
+				params.put("loanId", loanId);
 				return params;
 			}
 		};

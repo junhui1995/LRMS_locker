@@ -205,16 +205,15 @@ public class StudentReturnLoanFragment extends Fragment {
         Uri contentUri = getUriForFile(getContext(), "com.sit.labresourcemanagement.provider", newFile);
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType("message/rfc822");
-        i.putExtra(Intent.EXTRA_EMAIL, new String[]{"weeyeong.loo@singaporetech.edu.sg"});
+        i.putExtra(Intent.EXTRA_EMAIL, new String[]{"hiewjunhui1995@gmail.com"});
         i.putExtra(Intent.EXTRA_SUBJECT, "Proof of return ");
-        i.putExtra(Intent.EXTRA_TEXT, "Loan" + imageFilePath);
+        i.putExtra(Intent.EXTRA_TEXT, "Return of Item " + "\n" + "Item is ready to ber returned");
         i.putExtra(Intent.EXTRA_STREAM,  contentUri);
 
         try {
             startActivity(Intent.createChooser(i, "Send mail..."));
         } catch (android.content.ActivityNotFoundException ex) {
             Snackbar.make(view, "There are no email clients installed.", Snackbar.LENGTH_SHORT).show();
-            //Toast.makeText(POCheckInOutAsset.this, "", Toast.LENGTH_SHORT).show();
         }
     }
 }
